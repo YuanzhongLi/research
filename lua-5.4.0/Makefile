@@ -65,10 +65,14 @@ uninstall:
 	cd src && cd $(INSTALL_BIN) && $(RM) $(TO_BIN)
 	cd src && cd $(INSTALL_INC) && $(RM) $(TO_INC)
 	cd src && cd $(INSTALL_LIB) && $(RM) $(TO_LIB)
+	cd src && $(RM) *.o *.a lua luac
 	cd doc && cd $(INSTALL_MAN) && $(RM) $(TO_MAN)
 
 local:
 	$(MAKE) install INSTALL_TOP=../install
+
+clear:
+	cd src && $(RM) *.o *.a lua luac
 
 # make may get confused with install/ if it does not support .PHONY.
 dummy:
