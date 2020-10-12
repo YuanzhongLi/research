@@ -50,7 +50,7 @@
 ** Arrays of chars do not need any test
 */
 #define luaM_reallocvchar(L,b,on,n)  \
-  cast_charp(luaM_saferealloc_(L, (b), (on)*sizeof(char), (n)*sizeof(char)))
+  cast_charp(luaM_saferealloc_(L, (b), (on)*sizeof(char), (n)*sizeof(char), __FILE__, __LINE__))
 
 #define luaM_freemem(L, b, s)	luaM_free_(L, (b), (s))
 #define luaM_free(L, b)		luaM_free_(L, (b), sizeof(*(b)))
@@ -65,28 +65,28 @@
 
 #define luaM_growvector(L,v,nelems,size,t,limit,e) \
 	((v)=cast(t *, luaM_growaux_(L,v,nelems,&(size),sizeof(t), \
-                         luaM_limitN(limit,t),e)))
+                         luaM_limitN(limit,t),e, __FILE__, __LINE__)))
 
 #define luaM_reallocvector(L, v,oldn,n,t) \
    (cast(t *, luaM_realloc_(L, v, cast_sizet(oldn) * sizeof(t), \
-                                  cast_sizet(n) * sizeof(t))))
+                                  cast_sizet(n) * sizeof(t), __FILE__, __LINE__)))
 
 #define luaM_shrinkvector(L,v,size,fs,t) \
-   ((v)=cast(t *, luaM_shrinkvector_(L, v, &(size), fs, sizeof(t))))
+   ((v)=cast(t *, luaM_shrinkvector_(L, v, &(size), fs, sizeof(t), __FILE__, __LINE__)))
 
 LUAI_FUNC l_noret luaM_toobig (lua_State *L);
 
 /* not to be called directly */
 LUAI_FUNC void *luaM_realloc_ (lua_State *L, void *block, size_t oldsize,
-                                                          size_t size);
+                                                          size_t size, char *file, int line);
 LUAI_FUNC void *luaM_saferealloc_ (lua_State *L, void *block, size_t oldsize,
-                                                              size_t size);
+                                                              size_t size, char *file, int line);
 LUAI_FUNC void luaM_free_ (lua_State *L, void *block, size_t osize);
 LUAI_FUNC void *luaM_growaux_ (lua_State *L, void *block, int nelems,
                                int *size, int size_elem, int limit,
-                               const char *what);
+                               const char *what, char *file, int line);
 LUAI_FUNC void *luaM_shrinkvector_ (lua_State *L, void *block, int *nelem,
-                                    int final_n, int size_elem);
+                                    int final_n, int size_elem, char *file, int line);
 LUAI_FUNC void *luaM_malloc_ (lua_State *L, size_t size, int tag);
 
 #endif

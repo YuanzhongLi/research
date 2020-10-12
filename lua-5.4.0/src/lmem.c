@@ -77,7 +77,7 @@ static void *firsttry (global_State *g, void *block, size_t os, size_t ns) {
 
 
 void *luaM_growaux_ (lua_State *L, void *block, int nelems, int *psize,
-                     int size_elems, int limit, const char *what) {
+                     int size_elems, int limit, const char *what, char *file, int line) {
   void *newblock;
   int size = *psize;
   if (nelems + 1 <= size)  /* does one extra element still fit? */
@@ -95,7 +95,7 @@ void *luaM_growaux_ (lua_State *L, void *block, int nelems, int *psize,
   lua_assert(nelems + 1 <= size && size <= limit);
   /* 'limit' ensures that multiplication will not overflow */
   newblock = luaM_saferealloc_(L, block, cast_sizet(*psize) * size_elems,
-                                         cast_sizet(size) * size_elems);
+                                         cast_sizet(size) * size_elems, file, line);
   *psize = size;  /* update only when everything else is OK */
   return newblock;
 }
@@ -108,12 +108,12 @@ void *luaM_growaux_ (lua_State *L, void *block, int nelems, int *psize,
 ** error.
 */
 void *luaM_shrinkvector_ (lua_State *L, void *block, int *size,
-                          int final_n, int size_elem) {
+                          int final_n, int size_elem, char *file, int line) {
   void *newblock;
   size_t oldsize = cast_sizet((*size) * size_elem);
   size_t newsize = cast_sizet(final_n * size_elem);
   lua_assert(newsize <= oldsize);
-  newblock = luaM_saferealloc_(L, block, oldsize, newsize);
+  newblock = luaM_saferealloc_(L, block, oldsize, newsize, file, line);
   *size = final_n;
   return newblock;
 }
@@ -159,11 +159,12 @@ static void *tryagain (lua_State *L, void *block,
 ** If allocation fails while shrinking a block, do not try again; the
 ** GC shrinks some blocks and it is not reentrant.
 */
-void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize) {
+void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, char *file, int line) {
   void *newblock;
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
   newblock = firsttry(g, block, osize, nsize);
+  printf("%s %d\n", file, line);
   if (unlikely(newblock == NULL && nsize > 0)) {
     if (nsize > osize)  /* not shrinking a block? */
       newblock = tryagain(L, block, osize, nsize);
@@ -177,8 +178,8 @@ void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize) {
 
 
 void *luaM_saferealloc_ (lua_State *L, void *block, size_t osize,
-                                                    size_t nsize) {
-  void *newblock = luaM_realloc_(L, block, osize, nsize);
+                                                    size_t nsize, char *file, int line) {
+  void *newblock = luaM_realloc_(L, block, osize, nsize, file, line);
   if (unlikely(newblock == NULL && nsize > 0))  /* allocation failed? */
     luaM_error(L);
   return newblock;
