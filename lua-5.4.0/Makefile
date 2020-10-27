@@ -71,7 +71,7 @@ uninstall:
 local:
 	$(MAKE) install INSTALL_TOP=../install
 
-clear:
+clean:
 	cd src && $(RM) *.o *.a lua luac
 
 # make may get confused with install/ if it does not support .PHONY.

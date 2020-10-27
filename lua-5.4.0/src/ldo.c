@@ -185,6 +185,14 @@ static void correctstack (lua_State *L, StkId oldstack, StkId newstack) {
 int luaD_reallocstack (lua_State *L, int newsize, int raiseerror) {
   int lim = L->stacksize;
   StkId newstack = luaM_reallocvector(L, L->stack, lim, newsize, StackValue);
+
+  if (lim & newsize) {
+    printf("new stack: lim len%d, newsize len%d, StackValue size %d\n", lim, newsize, sizeof(StackValue));
+  } else {
+    printf("new stack: not\n");
+  }
+  printf("\n");
+
   lua_assert(newsize <= LUAI_MAXSTACK || newsize == ERRORSTACKSIZE);
   lua_assert(L->stack_last - L->stack == L->stacksize - EXTRA_STACK);
   if (unlikely(newstack == NULL)) {  /* reallocation failed? */
@@ -812,6 +820,8 @@ int luaD_protectedparser (lua_State *L, ZIO *z, const char *name,
   luaZ_initbuffer(L, &p.buff);
   status = luaD_pcall(L, f_parser, &p, savestack(L, L->top), L->errfunc);
   luaZ_freebuffer(L, &p.buff);
+  printf("free buffer\n");
+  printf("\n");
   luaM_freearray(L, p.dyd.actvar.arr, p.dyd.actvar.size);
   luaM_freearray(L, p.dyd.gt.arr, p.dyd.gt.size);
   luaM_freearray(L, p.dyd.label.arr, p.dyd.label.size);

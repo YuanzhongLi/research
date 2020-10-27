@@ -342,9 +342,16 @@ static void removevars (FuncState *fs, int tolevel) {
 static int searchupvalue (FuncState *fs, TString *name) {
   int i;
   Upvaldesc *up = fs->f->upvalues;
+  printf("search upvalue: value name %s\n", name);
   for (i = 0; i < fs->nups; i++) {
-    if (eqstr(up[i].name, name)) return i;
+    if (eqstr(up[i].name, name)) {
+      printf("upvalue found: index %d\n", i);
+      printf("\n");
+      return i;
+    }
   }
+  printf("upvalue not found\n");
+  printf("\n");
   return -1;  /* not found */
 }
 
@@ -355,8 +362,16 @@ static Upvaldesc *allocupvalue (FuncState *fs) {
   checklimit(fs, fs->nups + 1, MAXUPVAL, "upvalues");
   luaM_growvector(fs->ls->L, f->upvalues, fs->nups, f->sizeupvalues,
                   Upvaldesc, MAXUPVAL, "upvalues");
+  printf("allocate upvalue: fs->nups %d, sizeupvalues %d, Upvaldesc size %dbyte, limit %d\n",
+  fs->nups, f->sizeupvalues, sizeof(Upvaldesc), MAXUPVAL);
+  printf("source %s\n", f->source);
+  // printf("varname %s\n", f->locvars->varname); // セグフォが起きる...
+  // printf("name %s\n", f->upvalues[fs->nups].name);
+  printf("\n");
+
   while (oldsize < f->sizeupvalues)
     f->upvalues[oldsize++].name = NULL;
+
   return &f->upvalues[fs->nups++];
 }
 
@@ -751,6 +766,7 @@ static void close_func (LexState *ls) {
   leaveblock(fs);
   lua_assert(fs->bl == NULL);
   luaK_finish(fs);
+  printf("close func start\n");
   luaM_shrinkvector(L, f->code, f->sizecode, fs->pc, Instruction);
   luaM_shrinkvector(L, f->lineinfo, f->sizelineinfo, fs->pc, ls_byte);
   luaM_shrinkvector(L, f->abslineinfo, f->sizeabslineinfo,
@@ -761,6 +777,8 @@ static void close_func (LexState *ls) {
   luaM_shrinkvector(L, f->upvalues, f->sizeupvalues, fs->nups, Upvaldesc);
   ls->fs = fs->prev;
   luaC_checkGC(L);
+  printf("close func end\n");
+  printf("\n");
 }
 
 

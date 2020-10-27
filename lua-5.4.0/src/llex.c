@@ -174,7 +174,11 @@ void luaX_setinput (lua_State *L, LexState *ls, ZIO *z, TString *source,
   ls->lastline = 1;
   ls->source = source;
   ls->envn = luaS_newliteral(L, LUA_ENV);  /* get env name */
+  printf("luaX setinput source: %s\n", source->contents);
+  int old_buff_len = (ls->buff)->buffsize;
   luaZ_resizebuffer(ls->L, ls->buff, LUA_MINBUFFER);  /* initialize buffer */
+  printf("init buffer: old buff len %d, new buff len %d, value size %dbyte\n", old_buff_len, LUA_MINBUFFER, sizeof(char));
+  printf("\n");
 }
 
 

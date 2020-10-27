@@ -338,6 +338,7 @@ static void savelineinfo (FuncState *fs, Proto *f, int line) {
   int linedif = line - fs->previousline;
   int pc = fs->pc - 1;  /* last instruction coded */
   if (abs(linedif) >= LIMLINEDIFF || fs->iwthabs++ > MAXIWTHABS) {
+
     luaM_growvector(fs->ls->L, f->abslineinfo, fs->nabslineinfo,
                     f->sizeabslineinfo, AbsLineInfo, MAX_INT, "lines");
     f->abslineinfo[fs->nabslineinfo].pc = pc;
@@ -347,6 +348,11 @@ static void savelineinfo (FuncState *fs, Proto *f, int line) {
   }
   luaM_growvector(fs->ls->L, f->lineinfo, pc, f->sizelineinfo, ls_byte,
                   MAX_INT, "opcodes");
+
+  printf("save line info: pc(nelems) %d, sizelineinfo %d, size_elems %dbyte, limit %d\n", pc, f->sizelineinfo, sizeof(ls_byte), MAX_INT);
+  printf("line %d\n", line);
+  printf("\n");
+
   f->lineinfo[pc] = linedif;
   fs->previousline = line;  /* last line saved */
 }
@@ -393,6 +399,7 @@ int luaK_code (FuncState *fs, Instruction i) {
   luaM_growvector(fs->ls->L, f->code, fs->pc, f->sizecode, Instruction,
                   MAX_INT, "opcodes");
   f->code[fs->pc++] = i;
+  printf("in luaK_code\n");
   savelineinfo(fs, f, fs->ls->lastline);
   return fs->pc - 1;  /* index of new instruction */
 }
@@ -565,6 +572,10 @@ static int addk (FuncState *fs, TValue *key, TValue *v) {
      table has no metatable, so it does not need to invalidate cache */
   setivalue(idx, k);
   luaM_growvector(L, f->k, k, f->sizek, TValue, MAXARG_Ax, "constants");
+
+  printf("maybe setting hash or index about a value?\n");
+  printf("\n");
+
   while (oldsize < f->sizek) setnilvalue(&f->k[oldsize++]);
   setobj(L, &f->k[k], v);
   fs->nk++;
