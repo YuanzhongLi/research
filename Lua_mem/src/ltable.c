@@ -471,7 +471,7 @@ static void reinsert (lua_State *L, Table *ot, Table *t) {
          already present in the table */
       TValue k;
       getnodekey(L, &k, old);
-      setobjt2t(L, luaH_set(L, t, &k), gval(old));
+      setobjt2t(L, luaH_set(L, t, &k, -1000), gval(old));
     }
   }
 }
@@ -645,7 +645,7 @@ TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int indent) {
       if (pindent(indent)) printf("cannot find a free place\n");
       rehash(L, t, key, indent+2);  /* grow table */
       /* whatever called 'newkey' takes care of TM cache */
-      return luaH_set(L, t, key);  /* insert key into grown table */
+      return luaH_set(L, t, key, indent+2);  /* insert key into grown table */
     }
     lua_assert(!isdummy(t));
     othern = mainposition(t, keytt(mp), &keyval(mp));
@@ -764,11 +764,12 @@ const TValue *luaH_get (Table *t, const TValue *key) {
 ** beware: when using this function you probably need to check a GC
 ** barrier and invalidate the TM cache.
 */
-TValue *luaH_set (lua_State *L, Table *t, const TValue *key) {
+TValue *luaH_set (lua_State *L, Table *t, const TValue *key, int indent) {
+  if (pindent(indent)) printf("luaH_set\n");
   const TValue *p = luaH_get(t, key);
   if (!isabstkey(p))
     return cast(TValue *, p);
-  else return luaH_newkey(L, t, key, -1000);
+  else return luaH_newkey(L, t, key, indent+2);
 }
 
 

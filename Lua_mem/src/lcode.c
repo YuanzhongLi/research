@@ -214,7 +214,7 @@ void luaK_ret (FuncState *fs, int first, int nret) {
 }
 
 /*
-** Code a BPUSH/BPOP instruction for taint 
+** Code a BPUSH/BPOP instruction for taint
 */
 void luaK_bstack (FuncState *fs, int flag) {
   OpCode op;
@@ -562,7 +562,7 @@ static void freeexps (FuncState *fs, expdesc *e1, expdesc *e2) {
 static int addk (FuncState *fs, TValue *key, TValue *v) {
   lua_State *L = fs->ls->L;
   Proto *f = fs->f;
-  TValue *idx = luaH_set(L, fs->ls->h, key);  /* index scanner table */
+  TValue *idx = luaH_set(L, fs->ls->h, key, -1000);  /* index scanner table */
   int k, oldsize;
   if (ttisinteger(idx)) {  /* is there an index there? */
     k = cast_int(ivalue(idx));

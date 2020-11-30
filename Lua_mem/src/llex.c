@@ -132,7 +132,7 @@ TString *luaX_newstring (LexState *ls, const char *str, size_t l) {
   TValue *o;  /* entry for 'str' */
   TString *ts = luaS_newlstr(L, str, l);  /* create new string */
   setsvalue2s(L, L->top++, ts);  /* temporarily anchor it in stack */
-  o = luaH_set(L, ls->h, s2v(L->top - 1));
+  o = luaH_set(L, ls->h, s2v(L->top - 1), -1000);
   if (isempty(o)) {  /* not in use yet? */
     /* boolean value does not need GC barrier;
        table is not a metatable, so it does not need to invalidate cache */
@@ -575,4 +575,3 @@ int luaX_lookahead (LexState *ls) {
   ls->lookahead.token = llex(ls, &ls->lookahead.seminfo);
   return ls->lookahead.token;
 }
-
