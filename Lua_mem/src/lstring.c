@@ -157,7 +157,7 @@ static TString *createstrobj (lua_State *L, size_t l, int tag, unsigned int h) {
   GCObject *o;
   size_t totalsize;  /* total size of TString object */
   totalsize = sizelstring(l);
-  o = luaC_newobj(L, tag, totalsize);
+  o = luaC_newobj(L, tag, totalsize, -1000);
   ts = gco2ts(o);
   ts->hash = h;
   ts->extra = 0;
@@ -273,7 +273,7 @@ Udata *luaS_newudata (lua_State *L, size_t s, int nuvalue) {
   GCObject *o;
   if (unlikely(s > MAX_SIZE - udatamemoffset(nuvalue)))
     luaM_toobig(L);
-  o = luaC_newobj(L, LUA_VUSERDATA, sizeudata(nuvalue, s));
+  o = luaC_newobj(L, LUA_VUSERDATA, sizeudata(nuvalue, s), -1000);
   u = gco2u(o);
   u->len = s;
   u->nuvalue = nuvalue;
