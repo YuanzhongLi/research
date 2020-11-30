@@ -57,7 +57,7 @@ LUAI_FUNC Proto *luaF_newproto (lua_State *L);
 LUAI_FUNC CClosure *luaF_newCclosure (lua_State *L, int nupvals);
 LUAI_FUNC LClosure *luaF_newLclosure (lua_State *L, int nupvals, int indent);
 LUAI_FUNC void luaF_initupvals (lua_State *L, LClosure *cl);
-LUAI_FUNC UpVal *luaF_findupval (lua_State *L, StkId level);
+LUAI_FUNC UpVal *luaF_findupval (lua_State *L, StkId level, int indent);
 LUAI_FUNC void luaF_newtbcupval (lua_State *L, StkId level);
 LUAI_FUNC int luaF_close (lua_State *L, StkId level, int status);
 LUAI_FUNC void luaF_unlinkupval (UpVal *uv);

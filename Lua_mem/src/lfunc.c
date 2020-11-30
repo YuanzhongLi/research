@@ -63,8 +63,9 @@ void luaF_initupvals (lua_State *L, LClosure *cl) {
 ** Create a new upvalue at the given level, and link it to the list of
 ** open upvalues of 'L' after entry 'prev'.
 **/
-static UpVal *newupval (lua_State *L, int tbc, StkId level, UpVal **prev) {
-  GCObject *o = luaC_newobj(L, LUA_VUPVAL, sizeof(UpVal), -1000);
+static UpVal *newupval (lua_State *L, int tbc, StkId level, UpVal **prev, int indent) {
+  if (pindent(indent)) printf("newupval\n");
+  GCObject *o = luaC_newobj(L, LUA_VUPVAL, sizeof(UpVal), indent+2);
   UpVal *uv = gco2upv(o);
   UpVal *next = *prev;
   uv->v = s2v(level);  /* current value lives in the stack */
@@ -86,7 +87,8 @@ static UpVal *newupval (lua_State *L, int tbc, StkId level, UpVal **prev) {
 ** Find and reuse, or create if it does not exist, an upvalue
 ** at the given level.
 */
-UpVal *luaF_findupval (lua_State *L, StkId level) {
+UpVal *luaF_findupval (lua_State *L, StkId level, int indent) {
+  if (pindent(indent)) printf("luaF_findupval (Find and reuse, or create if it does not exist, an upvalue at the given level)\n");
   UpVal **pp = &L->openupval;
   UpVal *p;
   lua_assert(isintwups(L) || L->openupval == NULL);
@@ -97,7 +99,7 @@ UpVal *luaF_findupval (lua_State *L, StkId level) {
     pp = &p->u.open.next;
   }
   /* not found: create a new upvalue after 'pp' */
-  return newupval(L, 0, level, pp);
+  return newupval(L, 0, level, pp, indent+2);
 }
 
 
@@ -183,7 +185,7 @@ static int callclosemth (lua_State *L, StkId level, int status) {
 ** (can raise a memory-allocation error)
 */
 static void trynewtbcupval (lua_State *L, void *ud) {
-  newupval(L, 1, cast(StkId, ud), &L->openupval);
+  newupval(L, 1, cast(StkId, ud), &L->openupval, -1000);
 }
 
 
