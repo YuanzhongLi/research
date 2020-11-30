@@ -61,7 +61,7 @@
 #define luaM_newvectorchecked(L,n,t) \
   (luaM_checksize(L,n,sizeof(t)), luaM_newvector(L,n,t))
 
-#define luaM_newobject(L,tag,s)	luaM_malloc_(L, (s), tag)
+#define luaM_newobject(L,tag,s, indent)	luaM_malloc_(L, (s), tag)
 
 #define luaM_growvector(L,v,nelems,size,t,limit,e) \
 	((v)=cast(t *, luaM_growaux_(L,v,nelems,&(size),sizeof(t), \

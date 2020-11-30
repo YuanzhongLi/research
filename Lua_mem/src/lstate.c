@@ -323,7 +323,7 @@ LUA_API lua_State *lua_newthread (lua_State *L) {
   lua_lock(L);
   luaC_checkGC(L);
   /* create new thread */
-  L1 = &cast(LX *, luaM_newobject(L, LUA_TTHREAD, sizeof(LX)))->l;
+  L1 = &cast(LX *, luaM_newobject(L, LUA_TTHREAD, sizeof(LX), -1000))->l;
   L1->marked = luaC_white(g);
   L1->tt = LUA_VTHREAD;
   /* link it on list 'allgc' */
