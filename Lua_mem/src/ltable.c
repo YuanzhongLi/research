@@ -433,7 +433,8 @@ static int numusehash (const Table *t, unsigned int *nums, unsigned int *pna) {
 ** comparison ensures that the shift in the second one does not
 ** overflow.
 */
-static void setnodevector (lua_State *L, Table *t, unsigned int size) {
+static void setnodevector (lua_State *L, Table *t, unsigned int size, int indent) {
+  if (pindent(indent)) printf("setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)\n");
   if (size == 0) {  /* no elements to hash part? */
     t->node = cast(Node *, dummynode);  /* use common 'dummynode' */
     t->lsizenode = 0;
@@ -445,7 +446,7 @@ static void setnodevector (lua_State *L, Table *t, unsigned int size) {
     if (lsize > MAXHBITS || (1u << lsize) > MAXHSIZE)
       luaG_runerror(L, "table overflow");
     size = twoto(lsize);
-    t->node = luaM_newvector(L, size, Node, -1000);
+    t->node = luaM_newvector(L, size, Node, indent+2);
     for (i = 0; i < (int)size; i++) {
       Node *n = gnode(t, i);
       gnext(n) = 0;
@@ -514,7 +515,7 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
   unsigned int oldasize = setlimittosize(t);
   TValue *newarray;
   /* create new hash part with appropriate size into 'newt' */
-  setnodevector(L, &newt, nhsize);
+  setnodevector(L, &newt, nhsize, indent+2);
   if (newasize < oldasize) {  /* will array shrink? */
     t->alimit = newasize;  /* pretend array has new size... */
     exchangehashpart(t, &newt);  /* and new hash */
@@ -589,7 +590,7 @@ Table *luaH_new (lua_State *L, int indent) {
   t->flags = cast_byte(~0);
   t->array = NULL;
   t->alimit = 0;
-  setnodevector(L, t, 0);
+  setnodevector(L, t, 0, indent+2);
   return t;
 }
 
