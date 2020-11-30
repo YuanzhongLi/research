@@ -130,8 +130,17 @@ typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);
 */
 typedef void (*lua_WarnFunction) (void *ud, const char *msg, int tocont);
 
+// 自作
+static inline int pindent(int indent) {
+  if (indent >= 0) {
+    for (int i = 0; i < indent; i++) {
+      printf(" ");
+    }
+    return 1;
+  }
 
-
+  return 0;
+};
 
 /*
 ** generic extra include file

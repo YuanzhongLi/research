@@ -331,16 +331,16 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
                      TValue *val, const TValue *slot, int indent) {
   int loop;  /* counter to avoid infinite loops */
   for (loop = 0; loop < MAXTAGLOOP; loop++) {
-    if (indent >= 0) printf("loop %d\n", loop);
+    if (pindent(indent)) printf("loop %d\n", loop);
     const TValue *tm;  /* '__newindex' metamethod */
     if (slot != NULL) {  /* is 't' a table? */
-      if (indent >= 0) printf("is table\n");
+      if (pindent(indent)) printf("is table\n");
       Table *h = hvalue(t);  /* save 't' table */
       lua_assert(isempty(slot));  /* slot must be empty */
       tm = fasttm(L, h->metatable, TM_NEWINDEX);  /* get metamethod */
       if (tm == NULL) {  /* no metamethod? */
         if (isabstkey(slot))  /* no previous entry? */
-          if (indent >= 0) printf("no previous entry\n");
+          if (pindent(indent)) printf("no previous entry\n");
           slot = luaH_newkey(L, h, key);  /* create one */
         /* no metamethod and (now) there is an entry with given key */
         setobj2t(L, cast(TValue *, slot), val);  /* set its new value */
@@ -351,14 +351,14 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
       /* else will try the metamethod */
     }
     else {  /* not a table; check metamethod */
-      if (indent >= 0) printf("not table\n");
+      if (pindent(indent)) printf("not table\n");
       tm = luaT_gettmbyobj(L, t, TM_NEWINDEX);
       if (unlikely(notm(tm)))
         luaG_typeerror(L, t, "index");
     }
     /* try the metamethod */
     if (ttisfunction(tm)) {
-      if (indent >= 0) printf("is function\n");
+      if (pindent(indent)) printf("is function\n");
       luaT_callTM(L, tm, t, key, val);
       return;
     }
