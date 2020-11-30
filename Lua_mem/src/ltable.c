@@ -324,7 +324,8 @@ int luaH_next (lua_State *L, Table *t, StkId key) {
 }
 
 
-static void freehash (lua_State *L, Table *t) {
+static void freehash (lua_State *L, Table *t, int indent) {
+  if (pindent(indent)) printf("freehash\n");
   if (!isdummy(t))
     luaM_freearray(L, t->node, cast_sizet(sizenode(t)));
 }
@@ -530,7 +531,7 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
   /* allocate new array */
   newarray = luaM_reallocvector(L, t->array, oldasize, newasize, TValue, indent+2);
   if (unlikely(newarray == NULL && newasize > 0)) {  /* allocation failed? */
-    freehash(L, &newt);  /* release new hash part */
+    freehash(L, &newt, indent+2);  /* release new hash part */
     luaM_error(L);  /* raise error (with array unchanged) */
   }
   /* allocation ok; initialize new part of the array */
@@ -541,7 +542,7 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
      setempty(&t->array[i]);
   /* re-insert elements from old hash part into new parts */
   reinsert(L, &newt, t);  /* 'newt' now has the old hash */
-  freehash(L, &newt);  /* free old hash part */
+  freehash(L, &newt, indent+2);  /* free old hash part */
 }
 
 
@@ -596,7 +597,7 @@ Table *luaH_new (lua_State *L, int indent) {
 
 
 void luaH_free (lua_State *L, Table *t) {
-  freehash(L, t);
+  freehash(L, t, -1000);
   luaM_freearray(L, t->array, luaH_realasize(t));
   luaM_free(L, t);
 }
