@@ -749,7 +749,7 @@ LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {
   sethvalue2s(L, L->top, t);
   api_incr_top(L);
   if (narray > 0 || nrec > 0)
-    luaH_resize(L, t, narray, nrec);
+    luaH_resize(L, t, narray, nrec, -1000);
   luaC_checkGC(L);
   lua_unlock(L);
 }

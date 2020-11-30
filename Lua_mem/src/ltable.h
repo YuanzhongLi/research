@@ -40,7 +40,7 @@ LUAI_FUNC TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int in
 LUAI_FUNC TValue *luaH_set (lua_State *L, Table *t, const TValue *key);
 LUAI_FUNC Table *luaH_new (lua_State *L);
 LUAI_FUNC void luaH_resize (lua_State *L, Table *t, unsigned int nasize,
-                                                    unsigned int nhsize);
+                                                    unsigned int nhsize, int indent);
 LUAI_FUNC void luaH_resizearray (lua_State *L, Table *t, unsigned int nasize);
 LUAI_FUNC void luaH_free (lua_State *L, Table *t);
 LUAI_FUNC int luaH_next (lua_State *L, Table *t, StkId key);

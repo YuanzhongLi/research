@@ -252,7 +252,7 @@ static void init_registry (lua_State *L, global_State *g) {
   /* create registry */
   Table *registry = luaH_new(L);
   sethvalue(L, &g->l_registry, registry);
-  luaH_resize(L, registry, LUA_RIDX_LAST, 0);
+  luaH_resize(L, registry, LUA_RIDX_LAST, 0, -1000);
   /* registry[LUA_RIDX_MAINTHREAD] = L */
   setthvalue(L, &temp, L);  /* temp = L */
   luaH_setint(L, registry, LUA_RIDX_MAINTHREAD, &temp);
@@ -464,4 +464,3 @@ void luaE_warnerror (lua_State *L, const char *where) {
   luaE_warning(L, msg, 1);
   luaE_warning(L, ")", 0);
 }
-

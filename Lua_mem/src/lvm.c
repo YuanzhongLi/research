@@ -1473,7 +1473,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_NEWTABLE) {
-          printf("NEWTABLE\n");
+        printf("NEWTABLE\n");
         int b = GETARG_B(i);  /* log2(hash size) + 1 */
         int c = GETARG_C(i);  /* array size */
         Table *t;
@@ -1487,7 +1487,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         t = luaH_new(L);  /* memory allocation */
         sethvalue2s(L, ra, t);
         if (b != 0 || c != 0)
-          luaH_resize(L, t, c, b);  /* idem */
+          luaH_resize(L, t, c, b, INDENT);  /* idem */
         checkGC(L, ra + 1);
         vmbreak;
       }

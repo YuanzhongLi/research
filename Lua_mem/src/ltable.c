@@ -507,7 +507,8 @@ static void exchangehashpart (Table *t1, Table *t2) {
 ** parts of the table.
 */
 void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
-                                          unsigned int nhsize) {
+                                          unsigned int nhsize, int indent) {
+  if (pindent(indent)) printf("call luaH_resize\n");
   unsigned int i;
   Table newt;  /* to keep the new hash part */
   unsigned int oldasize = setlimittosize(t);
@@ -545,13 +546,14 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
 
 void luaH_resizearray (lua_State *L, Table *t, unsigned int nasize) {
   int nsize = allocsizenode(t);
-  luaH_resize(L, t, nasize, nsize);
+  luaH_resize(L, t, nasize, nsize, -1000);
 }
 
 /*
 ** nums[i] = number of keys 'k' where 2^(i - 1) < k <= 2^i
 */
-static void rehash (lua_State *L, Table *t, const TValue *ek) {
+static void rehash (lua_State *L, Table *t, const TValue *ek, int indent) {
+  if (pindent(indent)) printf("call rehash\n");
   unsigned int asize;  /* optimal size for array part */
   unsigned int na;  /* number of keys in the array part */
   unsigned int nums[MAXABITS + 1];
@@ -569,7 +571,7 @@ static void rehash (lua_State *L, Table *t, const TValue *ek) {
   /* compute new size for array part */
   asize = computesizes(nums, &na);
   /* resize the table to new computed sizes */
-  luaH_resize(L, t, asize, totaluse - na);
+  luaH_resize(L, t, asize, totaluse - na, indent+2);
 }
 
 
@@ -640,7 +642,7 @@ TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int indent) {
     Node *f = getfreepos(t);  /* get a free place */
     if (f == NULL) {  /* cannot find a free place? */
       if (pindent(indent)) printf("cannot find a free place\n");
-      rehash(L, t, key);  /* grow table */
+      rehash(L, t, key, indent+2);  /* grow table */
       /* whatever called 'newkey' takes care of TM cache */
       return luaH_set(L, t, key);  /* insert key into grown table */
     }
