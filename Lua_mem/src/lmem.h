@@ -57,9 +57,9 @@
 #define luaM_freearray(L, b, n)   luaM_free_(L, (b), (n)*sizeof(*(b)))
 
 #define luaM_new(L,t,indent)		cast(t*, luaM_malloc_(L, sizeof(t), 0, indent))
-#define luaM_newvector(L,n,t)	cast(t*, luaM_malloc_(L, (n)*sizeof(t), 0, -1000))
+#define luaM_newvector(L,n,t,indent)	cast(t*, luaM_malloc_(L, (n)*sizeof(t), 0, indent))
 #define luaM_newvectorchecked(L,n,t) \
-  (luaM_checksize(L,n,sizeof(t)), luaM_newvector(L,n,t))
+  (luaM_checksize(L,n,sizeof(t)), luaM_newvector(L,n,t, -1000))
 
 #define luaM_newobject(L,tag,s, indent)	luaM_malloc_(L, (s), tag, indent)
 
