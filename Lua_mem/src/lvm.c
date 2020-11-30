@@ -329,6 +329,7 @@ void luaV_finishget (lua_State *L, const TValue *t, TValue *key, StkId val,
 */
 void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
                      TValue *val, const TValue *slot, int indent) {
+  if (pindent(indent)) printf("luaV_finishset\n");
   int loop;  /* counter to avoid infinite loops */
   for (loop = 0; loop < MAXTAGLOOP; loop++) {
     if (pindent(indent)) printf("loop %d\n", loop);
@@ -341,7 +342,7 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
       if (tm == NULL) {  /* no metamethod? */
         if (isabstkey(slot))  /* no previous entry? */
           if (pindent(indent)) printf("no previous entry\n");
-          slot = luaH_newkey(L, h, key, indent);  /* create one */
+          slot = luaH_newkey(L, h, key, indent+2);  /* create one */
         /* no metamethod and (now) there is an entry with given key */
         setobj2t(L, cast(TValue *, slot), val);  /* set its new value */
         invalidateTMcache(h);
@@ -895,11 +896,12 @@ lua_Integer luaV_shiftl (lua_Integer x, lua_Integer y) {
 ** its upvalues.
 */
 static void pushclosure (lua_State *L, Proto *p, UpVal **encup, StkId base,
-                         StkId ra) {
+                         StkId ra, int indent) {
+  if (pindent(indent)) printf("pushclosure\n");
   int nup = p->sizeupvalues;
   Upvaldesc *uv = p->upvalues;
   int i;
-  LClosure *ncl = luaF_newLclosure(L, nup);
+  LClosure *ncl = luaF_newLclosure(L, nup, indent+2);
   ncl->p = p;
   setclLvalue2s(L, ra, ncl);  /* anchor new closure in stack */
   for (i = 0; i < nup; i++) {  /* fill in its upvalues */
@@ -2028,7 +2030,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
       vmcase(OP_CLOSURE) {
         printf("CLOSURE\n");
         Proto *p = cl->p->p[GETARG_Bx(i)];
-        halfProtect(pushclosure(L, p, cl->upvals, base, ra));
+        halfProtect(pushclosure(L, p, cl->upvals, base, ra, INDENT));
         checkGC(L, ra + 1);
         vmbreak;
       }

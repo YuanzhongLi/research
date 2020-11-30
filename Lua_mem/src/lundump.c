@@ -310,7 +310,7 @@ LClosure *luaU_undump(lua_State *L, ZIO *Z, const char *name) {
   S.L = L;
   S.Z = Z;
   checkHeader(&S);
-  cl = luaF_newLclosure(L, loadByte(&S));
+  cl = luaF_newLclosure(L, loadByte(&S), -1000);
   setclLvalue2s(L, L->top, cl);
   luaD_inctop(L);
   cl->p = luaF_newproto(L);

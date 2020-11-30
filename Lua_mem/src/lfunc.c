@@ -32,8 +32,9 @@ CClosure *luaF_newCclosure (lua_State *L, int nupvals) {
 }
 
 
-LClosure *luaF_newLclosure (lua_State *L, int nupvals) {
-  GCObject *o = luaC_newobj(L, LUA_VLCL, sizeLclosure(nupvals), -1000);
+LClosure *luaF_newLclosure (lua_State *L, int nupvals, int indent) {
+  if (pindent(indent)) printf("luaF_newLclosure\n");
+  GCObject *o = luaC_newobj(L, LUA_VLCL, sizeLclosure(nupvals), indent+2);
   LClosure *c = gco2lcl(o);
   c->p = NULL;
   c->nupvalues = cast_byte(nupvals);

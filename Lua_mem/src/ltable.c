@@ -622,6 +622,7 @@ static Node *getfreepos (Table *t) {
 ** position), new key goes to an empty position.
 */
 TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int indent) {
+  if (pindent(indent)) printf("luaH_newkey\n");
   Node *mp;
   TValue aux;
   if (unlikely(ttisnil(key)))
@@ -637,7 +638,6 @@ TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int indent) {
       luaG_runerror(L, "table index is NaN");
   }
   mp = mainpositionTV(t, key);
-  if (pindent(indent)) printf("luaH_newkey\n");
   if (!isempty(gval(mp)) || isdummy(t)) {  /* main position is taken? */
     Node *othern;
     Node *f = getfreepos(t);  /* get a free place */
