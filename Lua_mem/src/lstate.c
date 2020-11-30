@@ -240,7 +240,7 @@ static void freestack (lua_State *L) {
   L->ci = &L->base_ci;  /* free the entire 'ci' list */
   luaE_freeCI(L);
   lua_assert(L->nci == 0);
-  luaM_freearray(L, L->stack, L->stacksize);  /* free stack array */
+  luaM_freearray(L, L->stack, L->stacksize, -1000);  /* free stack array */
 }
 
 
@@ -310,7 +310,7 @@ static void close_state (lua_State *L) {
   luaC_freeallobjects(L);  /* collect all objects */
   if (ttisnil(&g->nilvalue))  /* closing a fully built state? */
     luai_userstateclose(L);
-  luaM_freearray(L, G(L)->strt.hash, G(L)->strt.size);
+  luaM_freearray(L, G(L)->strt.hash, G(L)->strt.size, -1000);
   freestack(L);
   lua_assert(gettotalbytes(g) == sizeof(LG));
   (*g->frealloc)(g->ud, fromstate(L), sizeof(LG), 0);  /* free main block */

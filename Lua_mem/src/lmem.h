@@ -52,9 +52,9 @@
 #define luaM_reallocvchar(L,b,on,n)  \
   cast_charp(luaM_saferealloc_(L, (b), (on)*sizeof(char), (n)*sizeof(char)))
 
-#define luaM_freemem(L, b, s)	luaM_free_(L, (b), (s))
-#define luaM_free(L, b)		luaM_free_(L, (b), sizeof(*(b)))
-#define luaM_freearray(L, b, n)   luaM_free_(L, (b), (n)*sizeof(*(b)))
+#define luaM_freemem(L, b, s)	luaM_free_(L, (b), (s), -1000)
+#define luaM_free(L, b)		luaM_free_(L, (b), sizeof(*(b)), -1000)
+#define luaM_freearray(L, b, n, indent)   luaM_free_(L, (b), (n)*sizeof(*(b)), indent)
 
 #define luaM_new(L,t,indent)		cast(t*, luaM_malloc_(L, sizeof(t), 0, indent))
 #define luaM_newvector(L,n,t,indent)	cast(t*, luaM_malloc_(L, (n)*sizeof(t), 0, indent))
@@ -81,7 +81,7 @@ LUAI_FUNC void *luaM_realloc_ (lua_State *L, void *block, size_t oldsize,
                                                           size_t size, int indent);
 LUAI_FUNC void *luaM_saferealloc_ (lua_State *L, void *block, size_t oldsize,
                                                               size_t size);
-LUAI_FUNC void luaM_free_ (lua_State *L, void *block, size_t osize);
+LUAI_FUNC void luaM_free_ (lua_State *L, void *block, size_t osize, int indent);
 LUAI_FUNC void *luaM_growaux_ (lua_State *L, void *block, int nelems,
                                int *size, int size_elem, int limit,
                                const char *what);

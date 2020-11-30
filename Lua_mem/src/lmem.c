@@ -129,9 +129,11 @@ l_noret luaM_toobig (lua_State *L) {
 /*
 ** Free memory
 */
-void luaM_free_ (lua_State *L, void *block, size_t osize) {
+void luaM_free_ (lua_State *L, void *block, size_t osize, int indent) {
+  if (pindent(indent)) printf("luaM_free_\n");
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
+  if (pindent(indent)) printf("*free   %d Byte\n", osize);
   (*g->frealloc)(g->ud, block, osize, 0);
   g->GCdebt -= osize;
 }
@@ -161,6 +163,7 @@ static void *tryagain (lua_State *L, void *block,
 */
 void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int indent) {
   if (pindent(indent)) printf("luaM_realloc_\n");
+  else printf("call luaM_realloc_\n");
   void *newblock;
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
@@ -175,10 +178,10 @@ void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int 
   g->GCdebt = (g->GCdebt + nsize) - osize;
 
   if (nsize > osize) {
-    if (pindent(indent)) printf("malloc: %d Byte\n", nsize-osize);
+    if (pindent(indent)) printf("malloc %d Byte\n", nsize-osize);
   }
   if (osize > nsize) {
-    if (pindent(indent)) printf("free:   %d Byte\n", osize-nsize);
+    if (pindent(indent)) printf("free   %d Byte\n", osize-nsize);
   }
 
   return newblock;
@@ -187,6 +190,7 @@ void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int 
 
 void *luaM_saferealloc_ (lua_State *L, void *block, size_t osize,
                                                     size_t nsize) {
+  printf("call luaM_saferealloc_\n");
   void *newblock = luaM_realloc_(L, block, osize, nsize, -1000);
   if (unlikely(newblock == NULL && nsize > 0))  /* allocation failed? */
     luaM_error(L);
@@ -206,7 +210,7 @@ void *luaM_malloc_ (lua_State *L, size_t size, int tag, int indent) {
       if (newblock == NULL)
         luaM_error(L);
     }
-    if (pindent(indent)) printf("malloc: %d Byte\n", size);
+    if (pindent(indent)) printf("malloc %d Byte\n", size);
     g->GCdebt += size;
     return newblock;
   }

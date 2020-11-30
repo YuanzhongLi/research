@@ -273,13 +273,13 @@ Proto *luaF_newproto (lua_State *L) {
 
 
 void luaF_freeproto (lua_State *L, Proto *f) {
-  luaM_freearray(L, f->code, f->sizecode);
-  luaM_freearray(L, f->p, f->sizep);
-  luaM_freearray(L, f->k, f->sizek);
-  luaM_freearray(L, f->lineinfo, f->sizelineinfo);
-  luaM_freearray(L, f->abslineinfo, f->sizeabslineinfo);
-  luaM_freearray(L, f->locvars, f->sizelocvars);
-  luaM_freearray(L, f->upvalues, f->sizeupvalues);
+  luaM_freearray(L, f->code, f->sizecode, -1000);
+  luaM_freearray(L, f->p, f->sizep, -1000);
+  luaM_freearray(L, f->k, f->sizek, -1000);
+  luaM_freearray(L, f->lineinfo, f->sizelineinfo, -1000);
+  luaM_freearray(L, f->abslineinfo, f->sizeabslineinfo, -1000);
+  luaM_freearray(L, f->locvars, f->sizelocvars, -1000);
+  luaM_freearray(L, f->upvalues, f->sizeupvalues, -1000);
   luaM_free(L, f);
 }
 
