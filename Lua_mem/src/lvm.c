@@ -567,8 +567,8 @@ int luaV_lessequal (lua_State *L, const TValue *l, const TValue *r) {
 
 /* check operation for implicit taint prop */
 Taint* luaV_checktrange (const TValue *t1, const TValue *t2, int cond, int comp) {
-    // cond 0: equal 1: not equal
-    // comp 0: ==, 1: <=, 2: <
+  // cond 0: equal 1: not equal
+  // comp 0: ==, 1: <=, 2: <
   Taint* taint;
   switch (ttypetag(t1)) {
   case LUA_VNIL: {
@@ -1295,13 +1295,13 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_LOADF) {
-          printf("LOADF\n");
+        printf("LOADF\n");
         int b = GETARG_sBx(i);
         setfltvalue(s2v(ra), cast_num(b));
         vmbreak;
       }
       vmcase(OP_LOADK) {
-          printf("LOADK\n");
+        printf("LOADK\n");
         TValue *rb = k + GETARG_Bx(i);
         setobj2s(L, ra, rb);  // copy taint
         printf("  R[%d] := K[%d]\n", GETARG_A(i), GETARG_Bx(i));
@@ -1309,30 +1309,30 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_LOADKX) {
-          printf("LOADKX\n");
+        printf("LOADKX\n");
         TValue *rb;
         rb = k + GETARG_Ax(*pc); pc++;
         setobj2s(L, ra, rb);
         vmbreak;
       }
       vmcase(OP_LOADFALSE) {
-          printf("LOADFALSE\n");
+        printf("LOADFALSE\n");
         setbfvalue(s2v(ra));
         vmbreak;
       }
       vmcase(OP_LFALSESKIP) {
-          printf("LFALSESKIP\n");
+        printf("LFALSESKIP\n");
         setbfvalue(s2v(ra));
         pc++;  /* skip next instruction */
         vmbreak;
       }
       vmcase(OP_LOADTRUE) {
-          printf("LOADTRUE\n");
+        printf("LOADTRUE\n");
         setbtvalue(s2v(ra));
         vmbreak;
       }
       vmcase(OP_LOADNIL) {
-          printf("LOADNIL\n");
+        printf("LOADNIL\n");
         int b = GETARG_B(i);
         do {
           setnilvalue(s2v(ra++));
@@ -1340,19 +1340,19 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_GETUPVAL) {
-          printf("GETUPVAL\n");
+        printf("GETUPVAL\n");
         int b = GETARG_B(i);
         setobj2s(L, ra, cl->upvals[b]->v);
         vmbreak;
       }
       vmcase(OP_SETUPVAL) {
-          printf("SETUPVAL\n");
+        printf("SETUPVAL\n");
         UpVal *uv = cl->upvals[GETARG_B(i)];
         setobj(L, uv->v, s2v(ra));
         luaC_barrier(L, uv, s2v(ra));
         vmbreak;
       }
-      vmcase(OP_GETTABUP) {
+      vmcase(OP_GETTABUP) { // 定義したものを取得
         printf("GETTABUP\n");  // R[A] := UpValue[B][K[C]:string]
         const TValue *slot;
         TValue *upval = cl->upvals[GETARG_B(i)]->v;
@@ -1370,7 +1370,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_GETTABLE) {
-          printf("GETTABLE\n");
+        printf("GETTABLE\n");
         const TValue *slot;
         TValue *rb = vRB(i);
         TValue *rc = vRC(i);
@@ -1385,15 +1385,14 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_GETI) {
-          printf("GETI\n");  // table(R[B])からindex(R[c])をつかってarrayの値を得る
+        printf("GETI\n");  // table(R[B])からindex(R[c])をつかってarrayの値を得る
         const TValue *slot;
         TValue *rb = vRB(i);
         int c = GETARG_C(i);
         if (luaV_fastgeti(L, rb, c, slot)) {
-            printf("  R[%d] := TAB[%d][%d] (taint val:%f)\n",
-                   GETARG_A(i), GETARG_B(i), c, slot->taint_.tval);
+          printf("  R[%d] := TAB[%d][%d]\n", GETARG_A(i), GETARG_B(i));
           setobj2s(L, ra, slot);
-          printf("  R[%d] (taint val:%f)\n", GETARG_A(i), s2v(ra)->taint_.tval);
+          printf("  R[%d]\n", GETARG_A(i));
         }
         else {
           TValue key;
@@ -1403,7 +1402,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_GETFIELD) {
-          printf("GETFIELD\n");  // talbe(R[B])からkey(R[C])をつかってhashのvalを得る
+        printf("GETFIELD\n");  // talbe(R[B])からkey(R[C])をつかってhashのvalを得る
         const TValue *slot;
         TValue *rb = vRB(i);
         TValue *rc = KC(i);
@@ -1416,13 +1415,15 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_SETTABUP) {
-          printf("SETTABUP\n");
+        printf("SETTABUP\n");
         const TValue *slot;
         TValue *upval = cl->upvals[GETARG_A(i)]->v;
         TValue *rb = KB(i);
         TValue *rc = RKC(i);
         TString *key = tsvalue(rb);  /* key must be a string */
-        if (luaV_fastget(L, upval, key, slot, luaH_getshortstr)) {
+        printf("  value name: %s, rc: %d\n", key->contents, rc->value_); // 定義した変数名
+        if (luaV_fastget(L, upval, key, slot, luaH_getshortstr)) { // すでにあってgetできるか
+          printf("  fastset: key %s, rc %d\n", key->contents, rc->value_);
           luaV_finishfastset(L, upval, slot, rc);
         }
         else
