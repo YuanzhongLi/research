@@ -1525,57 +1525,57 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_ADDK) {
-          printf("ADDK\n");
+        printf("ADDK\n");
         op_arithK(L, l_addi, luai_numadd);
         vmbreak;
       }
       vmcase(OP_SUBK) {
-          printf("SUBK\n");
+        printf("SUBK\n");
         op_arithK(L, l_subi, luai_numsub);
         vmbreak;
       }
       vmcase(OP_MULK) {
-          printf("MULK\n");
+        printf("MULK\n");
         op_arithK(L, l_muli, luai_nummul);
         vmbreak;
       }
       vmcase(OP_MODK) {
-          printf("MODK\n");
+        printf("MODK\n");
         op_arithK(L, luaV_mod, luaV_modf);
         vmbreak;
       }
       vmcase(OP_POWK) {
-          printf("POWK\n");
+        printf("POWK\n");
         op_arithfK(L, luai_numpow);
         vmbreak;
       }
       vmcase(OP_DIVK) {
-          printf("DIVK\n");
+        printf("DIVK\n");
         op_arithfK(L, luai_numdiv);
         vmbreak;
       }
       vmcase(OP_IDIVK) {
-          printf("IDIVK\n");
+        printf("IDIVK\n");
         op_arithK(L, luaV_idiv, luai_numidiv);
         vmbreak;
       }
       vmcase(OP_BANDK) {
-          printf("BANDK\n");
+        printf("BANDK\n");
         op_bitwiseK(L, l_band);
         vmbreak;
       }
       vmcase(OP_BORK) {
-          printf("BORK\n");
+        printf("BORK\n");
         op_bitwiseK(L, l_bor);
         vmbreak;
       }
       vmcase(OP_BXORK) {
-          printf("BXORK\n");
+        printf("BXORK\n");
         op_bitwiseK(L, l_bxor);
         vmbreak;
       }
       vmcase(OP_SHRI) {
-          printf("SHRI\n");
+        printf("SHRI\n");
         TValue *rb = vRB(i);
         int ic = GETARG_sC(i);
         lua_Integer ib;
@@ -1585,7 +1585,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_SHLI) {
-          printf("SHLI\n");
+        printf("SHLI\n");
         TValue *rb = vRB(i);
         int ic = GETARG_sC(i);
         lua_Integer ib;
@@ -1595,67 +1595,67 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_ADD) {
-          printf("ADD\n");
+        printf("ADD\n");
         op_arith(L, l_addi, luai_numadd);
         vmbreak;
       }
       vmcase(OP_SUB) {
-          printf("SUB\n");
+        printf("SUB\n");
         op_arith(L, l_subi, luai_numsub);
         vmbreak;
       }
       vmcase(OP_MUL) {
-          printf("MUL\n");
+        printf("MUL\n");
         op_arith(L, l_muli, luai_nummul);
         vmbreak;
       }
       vmcase(OP_MOD) {
-          printf("MOD\n");
+        printf("MOD\n");
         op_arith(L, luaV_mod, luaV_modf);
         vmbreak;
       }
       vmcase(OP_POW) {
-          printf("POW\n");
+        printf("POW\n");
         op_arithf(L, luai_numpow);
         vmbreak;
       }
       vmcase(OP_DIV) {  /* float division (always with floats) */
-          printf("DIV\n");
+        printf("DIV\n");
         op_arithf(L, luai_numdiv);
         vmbreak;
       }
       vmcase(OP_IDIV) {  /* floor division */
-          printf("IDIV\n");
+        printf("IDIV\n");
         op_arith(L, luaV_idiv, luai_numidiv);
         vmbreak;
       }
       vmcase(OP_BAND) {
-          printf("BAND\n");
+        printf("BAND\n");
         op_bitwise(L, l_band);
         vmbreak;
       }
       vmcase(OP_BOR) {
-          printf("BOR\n");
+        printf("BOR\n");
         op_bitwise(L, l_bor);
         vmbreak;
       }
       vmcase(OP_BXOR) {
-          printf("BXOR\n");
+        printf("BXOR\n");
         op_bitwise(L, l_bxor);
         vmbreak;
       }
       vmcase(OP_SHR) {
-          printf("SHR\n");
+        printf("SHR\n");
         op_bitwise(L, luaV_shiftr);
         vmbreak;
       }
       vmcase(OP_SHL) {
-          printf("SHL\n");
+        printf("SHL\n");
         op_bitwise(L, luaV_shiftl);
         vmbreak;
       }
       vmcase(OP_MMBIN) {
-          printf("MMBIN\n");
+        printf("MMBIN\n");
         Instruction pi = *(pc - 2);  /* original arith. expression */
         TValue *rb = vRB(i);
         TMS tm = (TMS)GETARG_C(i);
@@ -1665,7 +1665,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_MMBINI) {
-          printf("MMBINI\n");
+        printf("MMBINI\n");
         Instruction pi = *(pc - 2);  /* original arith. expression */
         int imm = GETARG_sB(i);
         TMS tm = (TMS)GETARG_C(i);
@@ -1675,7 +1675,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_MMBINK) {
-          printf("MMBINK\n");
+        printf("MMBINK\n");
         Instruction pi = *(pc - 2);  /* original arith. expression */
         TValue *imm = KB(i);
         TMS tm = (TMS)GETARG_C(i);
@@ -1685,7 +1685,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_UNM) {
-          printf("UNM\n");
+        printf("UNM\n");
         TValue *rb = vRB(i);
         lua_Number nb;
         if (ttisinteger(rb)) {
@@ -1700,7 +1700,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_BNOT) {
-          printf("BNOT\n");
+        printf("BNOT\n");
         TValue *rb = vRB(i);
         lua_Integer ib;
         if (tointegerns(rb, &ib)) {
@@ -1711,7 +1711,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_NOT) {
-          printf("NOT\n");
+        printf("NOT\n");
         TValue *rb = vRB(i);
         if (l_isfalse(rb))
           setbtvalue(s2v(ra));
@@ -1720,12 +1720,12 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_LEN) {
-          printf("LEN\n");
+        printf("LEN\n");
         Protect(luaV_objlen(L, ra, vRB(i)));
         vmbreak;
       }
       vmcase(OP_CONCAT) {
-          printf("CONCAT\n");
+        printf("CONCAT\n");
         int n = GETARG_B(i);  /* number of elements to concatenate */
         L->top = ra + n;  /* mark the end of concat operands */
         ProtectNT(luaV_concat(L, n));
@@ -1733,23 +1733,23 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_CLOSE) {
-          printf("CLOSE\n");
+        printf("CLOSE\n");
         Protect(luaF_close(L, ra, LUA_OK));
         vmbreak;
       }
       vmcase(OP_TBC) {
-          printf("TBC\n");
+        printf("TBC\n");
         /* create new to-be-closed upvalue */
         halfProtect(luaF_newtbcupval(L, ra));
         vmbreak;
       }
       vmcase(OP_JMP) {
-          printf("JMP\n");
+        printf("JMP\n");
         dojump(ci, i, 0);
         vmbreak;
       }
       vmcase(OP_EQ) {
-          printf("EQ\n");
+        printf("EQ\n");
         int cond;
         TValue *rb = vRB(i);
         Protect(cond = luaV_equalobj(L, s2v(ra), rb));
@@ -1791,7 +1791,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_EQI) {
-          printf("EQI\n");
+        printf("EQI\n");
         int cond;
         int im = GETARG_sB(i);
         if (ttisinteger(s2v(ra)))
@@ -1804,33 +1804,33 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_LTI) {
-          printf("LTI\n");
+        printf("LTI\n");
         op_orderI(L, l_lti, luai_numlt, 0, TM_LT);
         vmbreak;
       }
       vmcase(OP_LEI) {
-          printf("LEI\n");
+        printf("LEI\n");
         op_orderI(L, l_lei, luai_numle, 0, TM_LE);
         vmbreak;
       }
       vmcase(OP_GTI) {
-          printf("GTI\n");
+        printf("GTI\n");
         op_orderI(L, l_gti, luai_numgt, 1, TM_LT);
         vmbreak;
       }
       vmcase(OP_GEI) {
-          printf("GEI\n");
+        printf("GEI\n");
         op_orderI(L, l_gei, luai_numge, 1, TM_LE);
         vmbreak;
       }
       vmcase(OP_TEST) {
-          printf("TEST\n");
+        printf("TEST\n");
         int cond = !l_isfalse(s2v(ra));
         docondjump();
         vmbreak;
       }
       vmcase(OP_TESTSET) {
-          printf("TESTSET\n");
+        printf("TESTSET\n");
         TValue *rb = vRB(i);
         if (l_isfalse(rb) == GETARG_k(i))
           pc++;
@@ -1841,7 +1841,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_CALL) {
-          printf("CALL\n");
+        printf("CALL\n");
         int b = GETARG_B(i);
         int nresults = GETARG_C(i) - 1;
         if (b != 0)  /* fixed number of arguments? */
@@ -1851,7 +1851,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_TAILCALL) {
-          printf("TAILCALL\n");
+        printf("TAILCALL\n");
         int b = GETARG_B(i);  /* number of arguments + 1 (function) */
         int nparams1 = GETARG_C(i);
         /* delat is virtual 'func' - real 'func' (vararg functions) */
@@ -1886,7 +1886,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         goto tailcall;
       }
       vmcase(OP_RETURN) {
-          printf("RETURN\n");
+        printf("RETURN\n");
         int n = GETARG_B(i) - 1;  /* number of results */
         int nparams1 = GETARG_C(i);
         if (n < 0)  /* not fixed? */
@@ -1906,7 +1906,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         return;
       }
       vmcase(OP_RETURN0) {
-          printf("RETURN0\n");
+        printf("RETURN0\n");
         if (L->hookmask) {
           L->top = ra;
           halfProtectNT(luaD_poscall(L, ci, 0));  /* no hurry... */
@@ -1921,7 +1921,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         return;
       }
       vmcase(OP_RETURN1) {
-          printf("RETURN1\n");
+        printf("RETURN1\n");
         if (L->hookmask) {
           L->top = ra + 1;
           halfProtectNT(luaD_poscall(L, ci, 1));  /* no hurry... */
@@ -1941,7 +1941,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         return;
       }
       vmcase(OP_FORLOOP) {
-          printf("FORLOOP\n");
+        printf("FORLOOP\n");
         if (ttisinteger(s2v(ra + 2))) {  /* integer loop? */
           lua_Unsigned count = l_castS2U(ivalue(s2v(ra + 1)));
           if (count > 0) {  /* still more iterations? */
@@ -1960,14 +1960,14 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_FORPREP) {
-          printf("FORPREP\n");
+        printf("FORPREP\n");
         savestate(L, ci);  /* in case of errors */
         if (forprep(L, ra))
           pc += GETARG_Bx(i) + 1;  /* skip the loop */
         vmbreak;
       }
       vmcase(OP_TFORPREP) {
-          printf("TFORPREP\n");
+        printf("TFORPREP\n");
         /* create to-be-closed upvalue (if needed) */
         halfProtect(luaF_newtbcupval(L, ra + 3));
         pc += GETARG_Bx(i);
@@ -1976,12 +1976,12 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         goto l_tforcall;
       }
       vmcase(OP_TFORCALL) {
-          printf("TFORCALL\n");
-       l_tforcall:
+        printf("TFORCALL\n");
+        l_tforcall:
         /* 'ra' has the iterator function, 'ra + 1' has the state,
-           'ra + 2' has the control variable, and 'ra + 3' has the
-           to-be-closed variable. The call will use the stack after
-           these values (starting at 'ra + 4')
+          'ra + 2' has the control variable, and 'ra + 3' has the
+          to-be-closed variable. The call will use the stack after
+          these values (starting at 'ra + 4')
         */
         /* push function, state, and control variable */
         memcpy(ra + 4, ra, 3 * sizeof(*ra));
@@ -1993,7 +1993,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         goto l_tforloop;
       }
       vmcase(OP_TFORLOOP) {
-          printf("TFORLOOP\n");
+        printf("TFORLOOP\n");
         l_tforloop:
         if (!ttisnil(s2v(ra + 4))) {  /* continue loop? */
           setobjs2s(L, ra + 2, ra + 4);  /* save control variable */
@@ -2002,7 +2002,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_SETLIST) {
-          printf("SETLIST\n");
+        printf("SETLIST\n");
         int n = GETARG_B(i);
         unsigned int last = GETARG_C(i);
         Table *h = hvalue(s2v(ra));
@@ -2026,20 +2026,21 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_CLOSURE) {
-          printf("CLOSURE\n");
+        printf("CLOSURE\n");
         Proto *p = cl->p->p[GETARG_Bx(i)];
         halfProtect(pushclosure(L, p, cl->upvals, base, ra));
         checkGC(L, ra + 1);
         vmbreak;
       }
       vmcase(OP_VARARG) {
-          printf("VARARG\n");
+        printf("VARARG\n");
         int n = GETARG_C(i) - 1;  /* required results */
+        printf("n %d\n", n);
         Protect(luaT_getvarargs(L, ci, ra, n));
         vmbreak;
       }
       vmcase(OP_VARARGPREP) {
-          printf("VARARGPREP\n");
+        printf("VARARGPREP\n");
         luaT_adjustvarargs(L, GETARG_A(i), ci, cl->p);
         updatetrap(ci);
         if (trap) {
@@ -2050,20 +2051,20 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_BPUSH) {
-          printf("BPUSH\n");  // TODO: BPUSHでctaintをクリア
-          pushvstk(vstack, *ctaint);
-          printf("  push imp taint to vstack, tail:%d\n", vstack->tail);
-          vmbreak;
+        printf("BPUSH\n");  // TODO: BPUSHでctaintをクリア
+        pushvstk(vstack, *ctaint);
+        printf("  push imp taint to vstack, tail:%d\n", vstack->tail);
+        vmbreak;
       }
       vmcase(OP_BPOP) {
-          printf("BPOP\n");
-          popvstk(vstack);
-          printf("  pop imp taint from vstack, tail:%d\n", vstack->tail);
-          vmbreak;
+        printf("BPOP\n");
+        popvstk(vstack);
+        printf("  pop imp taint from vstack, tail:%d\n", vstack->tail);
+        vmbreak;
       }
       vmcase(OP_EXTRAARG) {
-          printf("inst:%d\n", GET_OPCODE(i));
-          printf("EXTRAARG\n");
+        printf("inst:%d\n", GET_OPCODE(i));
+        printf("EXTRAARG\n");
         lua_assert(0);
         vmbreak;
       }
