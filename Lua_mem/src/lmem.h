@@ -69,7 +69,7 @@
 
 #define luaM_reallocvector(L, v,oldn,n,t,indent) \
    (cast(t *, luaM_realloc_(L, v, cast_sizet(oldn) * sizeof(t), \
-                                  cast_sizet(n) * sizeof(t))))
+                                  cast_sizet(n) * sizeof(t), indent)))
 
 #define luaM_shrinkvector(L,v,size,fs,t) \
    ((v)=cast(t *, luaM_shrinkvector_(L, v, &(size), fs, sizeof(t))))
@@ -78,7 +78,7 @@ LUAI_FUNC l_noret luaM_toobig (lua_State *L);
 
 /* not to be called directly */
 LUAI_FUNC void *luaM_realloc_ (lua_State *L, void *block, size_t oldsize,
-                                                          size_t size);
+                                                          size_t size, int indent);
 LUAI_FUNC void *luaM_saferealloc_ (lua_State *L, void *block, size_t oldsize,
                                                               size_t size);
 LUAI_FUNC void luaM_free_ (lua_State *L, void *block, size_t osize);

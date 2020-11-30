@@ -159,7 +159,8 @@ static void *tryagain (lua_State *L, void *block,
 ** If allocation fails while shrinking a block, do not try again; the
 ** GC shrinks some blocks and it is not reentrant.
 */
-void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize) {
+void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int indent) {
+  if (pindent(indent)) printf("call luaM_realloc_\n");
   void *newblock;
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
@@ -172,13 +173,21 @@ void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize) {
   }
   lua_assert((nsize == 0) == (newblock == NULL));
   g->GCdebt = (g->GCdebt + nsize) - osize;
+
+  if (nsize > osize) {
+    if (pindent(indent)) printf("malloc: %d Byte\n", nsize-osize);
+  }
+  if (osize > nsize) {
+    if (pindent(indent)) printf("free:   %d Byte\n", osize-nsize);
+  }
+
   return newblock;
 }
 
 
 void *luaM_saferealloc_ (lua_State *L, void *block, size_t osize,
                                                     size_t nsize) {
-  void *newblock = luaM_realloc_(L, block, osize, nsize);
+  void *newblock = luaM_realloc_(L, block, osize, nsize, -1000);
   if (unlikely(newblock == NULL && nsize > 0))  /* allocation failed? */
     luaM_error(L);
   return newblock;
