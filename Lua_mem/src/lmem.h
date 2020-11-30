@@ -67,7 +67,7 @@
 	((v)=cast(t *, luaM_growaux_(L,v,nelems,&(size),sizeof(t), \
                          luaM_limitN(limit,t),e)))
 
-#define luaM_reallocvector(L, v,oldn,n,t) \
+#define luaM_reallocvector(L, v,oldn,n,t,indent) \
    (cast(t *, luaM_realloc_(L, v, cast_sizet(oldn) * sizeof(t), \
                                   cast_sizet(n) * sizeof(t))))
 
@@ -90,4 +90,3 @@ LUAI_FUNC void *luaM_shrinkvector_ (lua_State *L, void *block, int *nelem,
 LUAI_FUNC void *luaM_malloc_ (lua_State *L, size_t size, int tag);
 
 #endif
-

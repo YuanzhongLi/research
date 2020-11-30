@@ -100,7 +100,7 @@ void luaS_resize (lua_State *L, int nsize) {
   TString **newvect;
   if (nsize < osize)  /* shrinking table? */
     tablerehash(tb->hash, osize, nsize);  /* depopulate shrinking part */
-  newvect = luaM_reallocvector(L, tb->hash, osize, nsize, TString*);
+  newvect = luaM_reallocvector(L, tb->hash, osize, nsize, TString*, -1000);
   if (unlikely(newvect == NULL)) {  /* reallocation failed? */
     if (nsize < osize)  /* was it shrinking table? */
       tablerehash(tb->hash, nsize, osize);  /* restore to original size */
@@ -282,4 +282,3 @@ Udata *luaS_newudata (lua_State *L, size_t s, int nuvalue) {
     setnilvalue(&u->uv[i].uv);
   return u;
 }
-
