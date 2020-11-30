@@ -1431,7 +1431,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_SETTABLE) {
-          printf("SETTABLE\n");
+        printf("SETTABLE\n");
         const TValue *slot;
         TValue *rb = vRB(i);  /* key (table is in 'ra') */
         TValue *rc = RKC(i);  /* value */
@@ -1446,7 +1446,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_SETI) {
-          printf("SETI\n");
+        printf("SETI\n");
         const TValue *slot;
         int c = GETARG_B(i);
         TValue *rc = RKC(i);
@@ -1460,13 +1460,14 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         }
         vmbreak;
       }
-      vmcase(OP_SETFIELD) {
-          printf("SETFIELD\n");
+      vmcase(OP_SETFIELD) { // talbeにset
+        printf("SETFIELD\n");
         const TValue *slot;
         TValue *rb = KB(i);
         TValue *rc = RKC(i);
         TString *key = tsvalue(rb);  /* key must be a string */
         if (luaV_fastget(L, s2v(ra), key, slot, luaH_getshortstr)) {
+          printf("  fastget: true\n");
           luaV_finishfastset(L, s2v(ra), slot, rc);
         }
         else
@@ -1477,6 +1478,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         printf("NEWTABLE\n");
         int b = GETARG_B(i);  /* log2(hash size) + 1 */
         int c = GETARG_C(i);  /* array size */
+        printf("  log2(hash size) + 1: %d, array size %d\n", b, c);
         Table *t;
         if (b > 0)
           b = 1 << (b - 1);  /* size is 2^(b - 1) */
