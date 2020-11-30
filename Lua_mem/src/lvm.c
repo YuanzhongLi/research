@@ -328,16 +328,19 @@ void luaV_finishget (lua_State *L, const TValue *t, TValue *key, StkId val,
 ** 'luaV_fastget' would have done the job.)
 */
 void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
-                     TValue *val, const TValue *slot) {
+                     TValue *val, const TValue *slot, int indent) {
   int loop;  /* counter to avoid infinite loops */
   for (loop = 0; loop < MAXTAGLOOP; loop++) {
+    if (indent >= 0) printf("loop %d\n", loop);
     const TValue *tm;  /* '__newindex' metamethod */
     if (slot != NULL) {  /* is 't' a table? */
+      if (indent >= 0) printf("is table\n");
       Table *h = hvalue(t);  /* save 't' table */
       lua_assert(isempty(slot));  /* slot must be empty */
       tm = fasttm(L, h->metatable, TM_NEWINDEX);  /* get metamethod */
       if (tm == NULL) {  /* no metamethod? */
         if (isabstkey(slot))  /* no previous entry? */
+          if (indent >= 0) printf("no previous entry\n");
           slot = luaH_newkey(L, h, key);  /* create one */
         /* no metamethod and (now) there is an entry with given key */
         setobj2t(L, cast(TValue *, slot), val);  /* set its new value */
@@ -348,12 +351,14 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
       /* else will try the metamethod */
     }
     else {  /* not a table; check metamethod */
+      if (indent >= 0) printf("not table\n");
       tm = luaT_gettmbyobj(L, t, TM_NEWINDEX);
       if (unlikely(notm(tm)))
         luaG_typeerror(L, t, "index");
     }
     /* try the metamethod */
     if (ttisfunction(tm)) {
+      if (indent >= 0) printf("is function\n");
       luaT_callTM(L, tm, t, key, val);
       return;
     }
@@ -563,7 +568,7 @@ int luaV_lessequal (lua_State *L, const TValue *l, const TValue *r) {
 /* check operation for implicit taint prop */
 Taint* luaV_checktrange (const TValue *t1, const TValue *t2, int cond, int comp) {
     // cond 0: equal 1: not equal
-    // comp 0: ==, 1: <=, 2: < 
+    // comp 0: ==, 1: <=, 2: <
   Taint* taint;
   switch (ttypetag(t1)) {
   case LUA_VNIL: {
@@ -581,17 +586,17 @@ Taint* luaV_checktrange (const TValue *t1, const TValue *t2, int cond, int comp)
   case LUA_VNUMINT: {
       /* integer */
       printf("  LUA_VNUMINT, val:%d\n", (int)ivalue(t1));
-      break;      
+      break;
   }
   case LUA_VNUMFLT: {
       /* float */
       printf("  LUA_VNUMFLT, val:%f\n", (float)fltvalue(t1));
-      break;      
+      break;
   }
   case LUA_VLIGHTUSERDATA: {
       /* proto (function)*/
       printf("  LUA_VLIGHTUSERDATA\n");
-      break;            
+      break;
   }
   case LUA_VLCF: {
       /* light C function */
@@ -1106,11 +1111,11 @@ void luaV_finishOp (lua_State *L) {
           Protect(cond = other(L, s2v(ra), rb)); \
         Taint newtaint; \
         if (cond == GETARG_k(i)) {  \
-            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, (1-GETARG_k(i)), comp));  \ 
-        } else {  \ 
-            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, GETARG_k(i), comp));  \ 
-        }  \ 
-        ctaint = &newtaint;  \ 
+            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, (1-GETARG_k(i)), comp));  \
+        } else {  \
+            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, GETARG_k(i), comp));  \
+        }  \
+        ctaint = &newtaint;  \
         print_taint(*ctaint);  \
         docondjump(); }
 
@@ -1239,6 +1244,7 @@ void luaV_finishOp (lua_State *L) {
 #define vmcase(l)	case l:
 #define vmbreak		break
 
+static const int INDENT = 2;
 
 void luaV_execute (lua_State *L, CallInfo *ci) {
   LClosure *cl;
@@ -1282,12 +1288,11 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_LOADI) {
-          printf("LOADI\n");
+        printf("LOADI\n");
         lua_Integer b = GETARG_sBx(i);
         setivalue(s2v(ra), b);  // clear taint
-        printf("  R[%d] := %d\n",
-               GETARG_A(i), (int)b);
-        printf("  R[%d] (taint val:%f)\n", GETARG_A(i), s2v(ra)->taint_.tval);
+        printf("  R[%d] := %d\n", GETARG_A(i), (int)b);
+        printf("  R[%d]\n", GETARG_A(i));
         vmbreak;
       }
       vmcase(OP_LOADF) {
@@ -1300,9 +1305,8 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
           printf("LOADK\n");
         TValue *rb = k + GETARG_Bx(i);
         setobj2s(L, ra, rb);  // copy taint
-        printf("  R[%d] := K[%d] (taint val:%f)\n",
-               GETARG_A(i), GETARG_Bx(i), rb->taint_.tval);
-        printf("  R[%d] (taint val:%f)\n", GETARG_A(i), s2v(ra)->taint_.tval);
+        printf("  R[%d] := K[%d]\n", GETARG_A(i), GETARG_Bx(i));
+        printf("  R[%d]\n", GETARG_A(i));
         vmbreak;
       }
       vmcase(OP_LOADKX) {
@@ -1355,10 +1359,10 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         TValue *upval = cl->upvals[GETARG_B(i)]->v;
         TValue *rc = KC(i);
         TString *key = tsvalue(rc);  /* key must be a string */
+        printf("  key name: %s\n", key->contents);
 
         if (luaV_fastget(L, upval, key, slot, luaH_getshortstr)) {  // if upval[key] is present, return 1 and slot pointing to upval[key]
-            printf("  R[%d] := TAB[%d][K[C]:%s]\n",
-                   GETARG_A(i), GETARG_B(i), getstr(key));
+            printf("  R[%d] := TAB[%d][K[C]:%s]\n", GETARG_A(i), GETARG_B(i), getstr(key));
             setobj2s(L, ra, slot);  // ra = slot (upval[key])
             /* printf("  R[A]: (tag)%d\n", (int) ttype(s2v(ra)) );  // ra is LUA_VTABLE (hash table) */
         }
@@ -1423,7 +1427,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
           luaV_finishfastset(L, upval, slot, rc);
         }
         else
-          Protect(luaV_finishset(L, upval, rb, rc, slot));
+          Protect(luaV_finishset(L, upval, rb, rc, slot, INDENT));
         vmbreak;
       }
       vmcase(OP_SETTABLE) {
@@ -1438,7 +1442,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
           luaV_finishfastset(L, s2v(ra), slot, rc);
         }
         else
-          Protect(luaV_finishset(L, s2v(ra), rb, rc, slot));
+          Protect(luaV_finishset(L, s2v(ra), rb, rc, slot, INDENT));
         vmbreak;
       }
       vmcase(OP_SETI) {
@@ -1452,7 +1456,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         else {
           TValue key;
           setivalue(&key, c);
-          Protect(luaV_finishset(L, s2v(ra), &key, rc, slot));
+          Protect(luaV_finishset(L, s2v(ra), &key, rc, slot, INDENT));
         }
         vmbreak;
       }
@@ -1466,7 +1470,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
           luaV_finishfastset(L, s2v(ra), slot, rc);
         }
         else
-          Protect(luaV_finishset(L, s2v(ra), rb, rc, slot));
+          Protect(luaV_finishset(L, s2v(ra), rb, rc, slot, INDENT));
         vmbreak;
       }
       vmcase(OP_NEWTABLE) {

@@ -820,7 +820,7 @@ static void auxsetstr (lua_State *L, const TValue *t, const char *k) {
   else {
     setsvalue2s(L, L->top, str);  /* push 'str' (to make it a TValue) */
     api_incr_top(L);
-    luaV_finishset(L, t, s2v(L->top - 1), s2v(L->top - 2), slot);
+    luaV_finishset(L, t, s2v(L->top - 1), s2v(L->top - 2), slot, -1000);
     L->top -= 2;  /* pop value and key */
   }
   lua_unlock(L);  /* lock done by caller */
@@ -844,7 +844,7 @@ LUA_API void lua_settable (lua_State *L, int idx) {
     luaV_finishfastset(L, t, slot, s2v(L->top - 1));
   }
   else
-    luaV_finishset(L, t, s2v(L->top - 2), s2v(L->top - 1), slot);
+    luaV_finishset(L, t, s2v(L->top - 2), s2v(L->top - 1), slot, -1000);
   L->top -= 2;  /* pop index and value */
   lua_unlock(L);
 }
@@ -868,7 +868,7 @@ LUA_API void lua_seti (lua_State *L, int idx, lua_Integer n) {
   else {
     TValue aux;
     setivalue(&aux, n);
-    luaV_finishset(L, t, &aux, s2v(L->top - 1), slot);
+    luaV_finishset(L, t, &aux, s2v(L->top - 1), slot, -1000);
   }
   L->top--;  /* pop value */
   lua_unlock(L);
@@ -1431,5 +1431,3 @@ LUA_API void lua_upvaluejoin (lua_State *L, int fidx1, int n1,
   *up1 = *up2;
   luaC_objbarrier(L, f1, *up1);
 }
-
-

@@ -121,7 +121,7 @@ LUAI_FUNC int luaV_flttointeger (lua_Number n, lua_Integer *p, F2Imod mode);
 LUAI_FUNC void luaV_finishget (lua_State *L, const TValue *t, TValue *key,
                                StkId val, const TValue *slot);
 LUAI_FUNC void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
-                               TValue *val, const TValue *slot);
+                               TValue *val, const TValue *slot, int indent);
 LUAI_FUNC void luaV_finishOp (lua_State *L);
 LUAI_FUNC void luaV_execute (lua_State *L, CallInfo *ci);
 LUAI_FUNC void luaV_concat (lua_State *L, int total);
