@@ -160,7 +160,7 @@ static void *tryagain (lua_State *L, void *block,
 ** GC shrinks some blocks and it is not reentrant.
 */
 void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int indent) {
-  if (pindent(indent)) printf("call luaM_realloc_\n");
+  if (pindent(indent)) printf("luaM_realloc_\n");
   void *newblock;
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
@@ -195,7 +195,7 @@ void *luaM_saferealloc_ (lua_State *L, void *block, size_t osize,
 
 
 void *luaM_malloc_ (lua_State *L, size_t size, int tag, int indent) {
-  if (pindent(indent)) printf("call luaM_malloc_\n");
+  if (pindent(indent)) printf("luaM_malloc_\n");
   if (size == 0)
     return NULL;  /* that's all */
   else {

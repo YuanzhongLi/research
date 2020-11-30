@@ -508,7 +508,7 @@ static void exchangehashpart (Table *t1, Table *t2) {
 */
 void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
                                           unsigned int nhsize, int indent) {
-  if (pindent(indent)) printf("call luaH_resize\n");
+  if (pindent(indent)) printf("luaH_resize\n");
   unsigned int i;
   Table newt;  /* to keep the new hash part */
   unsigned int oldasize = setlimittosize(t);
@@ -553,7 +553,7 @@ void luaH_resizearray (lua_State *L, Table *t, unsigned int nasize) {
 ** nums[i] = number of keys 'k' where 2^(i - 1) < k <= 2^i
 */
 static void rehash (lua_State *L, Table *t, const TValue *ek, int indent) {
-  if (pindent(indent)) printf("call rehash\n");
+  if (pindent(indent)) printf("rehash\n");
   unsigned int asize;  /* optimal size for array part */
   unsigned int na;  /* number of keys in the array part */
   unsigned int nums[MAXABITS + 1];
@@ -582,7 +582,7 @@ static void rehash (lua_State *L, Table *t, const TValue *ek, int indent) {
 
 
 Table *luaH_new (lua_State *L, int indent) {
-  if (pindent(indent)) printf("call luaH_new\n");
+  if (pindent(indent)) printf("luaH_new\n");
   GCObject *o = luaC_newobj(L, LUA_VTABLE, sizeof(Table), indent+2);
   Table *t = gco2t(o);
   t->metatable = NULL;
@@ -637,7 +637,7 @@ TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int indent) {
       luaG_runerror(L, "table index is NaN");
   }
   mp = mainpositionTV(t, key);
-  if (pindent(indent)) printf("call luaH_newkey\n");
+  if (pindent(indent)) printf("luaH_newkey\n");
   if (!isempty(gval(mp)) || isdummy(t)) {  /* main position is taken? */
     Node *othern;
     Node *f = getfreepos(t);  /* get a free place */

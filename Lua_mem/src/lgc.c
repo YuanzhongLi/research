@@ -238,7 +238,7 @@ void luaC_fix (lua_State *L, GCObject *o) {
 ** it to 'allgc' list.
 */
 GCObject *luaC_newobj (lua_State *L, int tt, size_t sz, int indent) {
-  if (pindent(indent)) printf("call luaC_newobj\n");
+  if (pindent(indent)) printf("luaC_newobj\n");
   global_State *g = G(L);
   GCObject *o = cast(GCObject *, luaM_newobject(L, novariant(tt), sz, indent+2));
   o->marked = luaC_white(g);
