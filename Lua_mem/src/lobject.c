@@ -581,20 +581,20 @@ void luaO_chunkid (char *out, const char *source, size_t srclen) {
   }
 }
 
-void print_taint(Taint t) {
-    printf("== print_taint ==\n");
-    printf("taint src:%d, val:%f, rsize:%d\n", t.srcidx, t.tval, t.rsize);
-    printf("  ranges:\n");
-    for (int i=0; i<(t.rsize); i++) {
-        printf("  for %d: ", i);
-        for (int j=0; j<(t.ranges[i].rsize); j++) {
-            printf("(%d, %d), ",
-                   t.ranges[i].range[j].start, t.ranges[i].range[j].end);
-        }
-        printf("  \n");
-    }
-    printf("== print_taint end ==\n");
-}
+// void print_taint(Taint t) {
+//     printf("== print_taint ==\n");
+//     printf("taint src:%d, val:%f, rsize:%d\n", t.srcidx, t.tval, t.rsize);
+//     printf("  ranges:\n");
+//     for (int i=0; i<(t.rsize); i++) {
+//         printf("  for %d: ", i);
+//         for (int j=0; j<(t.ranges[i].rsize); j++) {
+//             printf("(%d, %d), ",
+//                    t.ranges[i].range[j].start, t.ranges[i].range[j].end);
+//         }
+//         printf("  \n");
+//     }
+//     printf("== print_taint end ==\n");
+// }
 
 float luaO_calctaint(Taint t) {
     // tvalとrangeからtaint値を計算する
@@ -674,7 +674,7 @@ Taint luaO_andrange(Taint *t1, Taint *t2) {
                 } else {  // s.s s.e l.s l.e
                     continue;
                 }
-            }  // for short 
+            }  // for short
         }  // for long
         newranges[i].range = newr;
         newranges[i].rsize = nrsize;

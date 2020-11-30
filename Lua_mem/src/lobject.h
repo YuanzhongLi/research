@@ -149,7 +149,7 @@ typedef struct TValue {
 #define setobj(L,obj1,obj2) \
 	{ TValue *io1=(obj1); const TValue *io2=(obj2); \
           io1->value_ = io2->value_; settt_(io1, io2->tt_); \
-          settaint_(io1, io2->taint_);                      \ 
+          settaint_(io1, io2->taint_);                      \
 	  checkliveness(L,io1); lua_assert(!isnonstrictnil(io1)); }
 
 /*
@@ -822,10 +822,9 @@ LUAI_FUNC const char *luaO_pushfstring (lua_State *L, const char *fmt, ...);
 LUAI_FUNC void luaO_chunkid (char *out, const char *source, size_t srclen);
 
 // support functions for Taint
-LUAI_FUNC void print_taint(Taint t);
+// LUAI_FUNC void print_taint(Taint t);
 LUAI_FUNC float luaO_calctaint(Taint t);
 LUAI_FUNC Taint luaO_andrange(Taint *t1, Taint *t2);
 
 
 #endif
-

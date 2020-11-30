@@ -618,7 +618,7 @@ static Node *getfreepos (Table *t) {
 ** put new key in its main position; otherwise (colliding node is in its main
 ** position), new key goes to an empty position.
 */
-TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key) {
+TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key, int indent) {
   Node *mp;
   TValue aux;
   if (unlikely(ttisnil(key)))
@@ -634,10 +634,12 @@ TValue *luaH_newkey (lua_State *L, Table *t, const TValue *key) {
       luaG_runerror(L, "table index is NaN");
   }
   mp = mainpositionTV(t, key);
+  if (pindent(indent)) printf("call luaH_newkey\n");
   if (!isempty(gval(mp)) || isdummy(t)) {  /* main position is taken? */
     Node *othern;
     Node *f = getfreepos(t);  /* get a free place */
     if (f == NULL) {  /* cannot find a free place? */
+      if (pindent(indent)) printf("cannot find a free place\n");
       rehash(L, t, key);  /* grow table */
       /* whatever called 'newkey' takes care of TM cache */
       return luaH_set(L, t, key);  /* insert key into grown table */
@@ -763,7 +765,7 @@ TValue *luaH_set (lua_State *L, Table *t, const TValue *key) {
   const TValue *p = luaH_get(t, key);
   if (!isabstkey(p))
     return cast(TValue *, p);
-  else return luaH_newkey(L, t, key);
+  else return luaH_newkey(L, t, key, -1000);
 }
 
 
@@ -775,7 +777,7 @@ void luaH_setint (lua_State *L, Table *t, lua_Integer key, TValue *value) {
   else {
     TValue k;
     setivalue(&k, key);
-    cell = luaH_newkey(L, t, &k);
+    cell = luaH_newkey(L, t, &k, -1000);
   }
   setobj2t(L, cell, value);
 }

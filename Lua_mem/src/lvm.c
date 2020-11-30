@@ -341,7 +341,7 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
       if (tm == NULL) {  /* no metamethod? */
         if (isabstkey(slot))  /* no previous entry? */
           if (pindent(indent)) printf("no previous entry\n");
-          slot = luaH_newkey(L, h, key);  /* create one */
+          slot = luaH_newkey(L, h, key, indent);  /* create one */
         /* no metamethod and (now) there is an entry with given key */
         setobj2t(L, cast(TValue *, slot), val);  /* set its new value */
         invalidateTMcache(h);
@@ -1116,7 +1116,6 @@ void luaV_finishOp (lua_State *L) {
             newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, GETARG_k(i), comp));  \
         }  \
         ctaint = &newtaint;  \
-        print_taint(*ctaint);  \
         docondjump(); }
 
 
@@ -1516,7 +1515,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
             printf("vstack top taint:%f\n", gettopvstk(vstack).tval);
             settaint_(s2v(ra),
                       luaO_andrange(&(s2v(ra)->taint_), &gettopvstk(vstack)));
-            print_taint(s2v(ra)->taint_);
+            // print_taint(s2v(ra)->taint_);
             /* settaint_(s2v(ra), gettopvstk(vstack));  // TODO: taintの上書きじゃなくてandをとる？ */
             /* printf("  implicit emtropy propagation! new imp:%f\n", s2v(ra)->taint_.tval); */
             printf("calculated taint val: %f\n", luaO_calctaint(s2v(ra)->taint_));
@@ -1770,7 +1769,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_EQK) {
-          printf("EQK\n");  // if ((R[A] == K[B]) ~= k) then pc++
+        printf("EQK\n");  // if ((R[A] == K[B]) ~= k) then pc++
         TValue *rb = KB(i);
         printf("  if ((R[%d] == R[%d]) != %d) then pc++\n",
                GETARG_A(i), GETARG_B(i), GETARG_k(i));
@@ -1785,7 +1784,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
             newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, GETARG_k(i), 0));
         }
         ctaint = &newtaint;
-        print_taint(*ctaint);
+        // print_taint(*ctaint);
         docondjump();
         vmbreak;
       }
