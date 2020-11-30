@@ -907,7 +907,7 @@ LUA_API void lua_rawseti (lua_State *L, int idx, lua_Integer n) {
   lua_lock(L);
   api_checknelems(L, 1);
   t = gettable(L, idx);
-  luaH_setint(L, t, n, s2v(L->top - 1));
+  luaH_setint(L, t, n, s2v(L->top - 1), -1000);
   luaC_barrierback(L, obj2gco(t), s2v(L->top - 1));
   L->top--;
   lua_unlock(L);

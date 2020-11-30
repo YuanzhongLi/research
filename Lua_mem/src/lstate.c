@@ -255,10 +255,10 @@ static void init_registry (lua_State *L, global_State *g) {
   luaH_resize(L, registry, LUA_RIDX_LAST, 0, -1000);
   /* registry[LUA_RIDX_MAINTHREAD] = L */
   setthvalue(L, &temp, L);  /* temp = L */
-  luaH_setint(L, registry, LUA_RIDX_MAINTHREAD, &temp);
+  luaH_setint(L, registry, LUA_RIDX_MAINTHREAD, &temp, -1000);
   /* registry[LUA_RIDX_GLOBALS] = table of globals */
   sethvalue(L, &temp, luaH_new(L, -1000));  /* temp = new table (global table) */
-  luaH_setint(L, registry, LUA_RIDX_GLOBALS, &temp);
+  luaH_setint(L, registry, LUA_RIDX_GLOBALS, &temp, -1000);
 }
 
 

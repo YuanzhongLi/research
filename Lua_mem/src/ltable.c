@@ -522,7 +522,7 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
     /* re-insert into the new hash the elements from vanishing slice */
     for (i = newasize; i < oldasize; i++) {
       if (!isempty(&t->array[i]))
-        luaH_setint(L, t, i + 1, &t->array[i]);
+        luaH_setint(L, t, i + 1, &t->array[i], indent+2);
     }
     t->alimit = oldasize;  /* restore current size... */
     exchangehashpart(t, &newt);  /* and hash (in case of errors) */
@@ -774,7 +774,8 @@ TValue *luaH_set (lua_State *L, Table *t, const TValue *key, int indent) {
 }
 
 
-void luaH_setint (lua_State *L, Table *t, lua_Integer key, TValue *value) {
+void luaH_setint (lua_State *L, Table *t, lua_Integer key, TValue *value, int indent) {
+  if (pindent(indent)) printf("luaH_setint\n");
   const TValue *p = luaH_getint(t, key);
   TValue *cell;
   if (!isabstkey(p))
@@ -782,7 +783,7 @@ void luaH_setint (lua_State *L, Table *t, lua_Integer key, TValue *value) {
   else {
     TValue k;
     setivalue(&k, key);
-    cell = luaH_newkey(L, t, &k, -1000);
+    cell = luaH_newkey(L, t, &k, indent+2);
   }
   setobj2t(L, cell, value);
 }

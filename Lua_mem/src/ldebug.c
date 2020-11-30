@@ -311,7 +311,7 @@ static void collectvalidlines (lua_State *L, Closure *f) {
     setbtvalue(&v);  /* boolean 'true' to be the value of all indices */
     for (i = 0; i < p->sizelineinfo; i++) {  /* for all lines with code */
       currentline = nextline(p, currentline, i);
-      luaH_setint(L, t, currentline, &v);  /* table[line] = true */
+      luaH_setint(L, t, currentline, &v, -1000);  /* table[line] = true */
     }
   }
 }
