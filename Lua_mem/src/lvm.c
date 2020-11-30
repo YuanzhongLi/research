@@ -1495,7 +1495,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         vmbreak;
       }
       vmcase(OP_SELF) {
-          printf("SELF\n");
+        printf("SELF\n");
         const TValue *slot;
         TValue *rb = vRB(i);
         TValue *rc = RKC(i);
@@ -1510,19 +1510,18 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
       }
       vmcase(OP_ADDI) {
         printf("ADDI\n");
-        printf("  R[%d] := R[%d] + %d (taint val:%f)\n",
-               GETARG_A(i), GETARG_B(i), GETARG_sC(i), vRB(i)->taint_.tval);
+        printf("  R[%d] := R[%d] + %d\n", GETARG_A(i), GETARG_B(i), GETARG_sC(i));
         op_arithI(L, l_addi, luai_numadd);
-        if (!isvstkempty(vstack)) {
-            printf("ra taint:%f, ", s2v(ra)->taint_.tval);
-            printf("vstack top taint:%f\n", gettopvstk(vstack).tval);
-            settaint_(s2v(ra),
-                      luaO_andrange(&(s2v(ra)->taint_), &gettopvstk(vstack)));
-            // print_taint(s2v(ra)->taint_);
-            /* settaint_(s2v(ra), gettopvstk(vstack));  // TODO: taintの上書きじゃなくてandをとる？ */
-            /* printf("  implicit emtropy propagation! new imp:%f\n", s2v(ra)->taint_.tval); */
-            printf("calculated taint val: %f\n", luaO_calctaint(s2v(ra)->taint_));
-        }
+        // if (!isvstkempty(vstack)) {
+        //     printf("ra taint:%f, ", s2v(ra)->taint_.tval);
+        //     printf("vstack top taint:%f\n", gettopvstk(vstack).tval);
+        //     settaint_(s2v(ra),
+        //               luaO_andrange(&(s2v(ra)->taint_), &gettopvstk(vstack)));
+        //     // print_taint(s2v(ra)->taint_);
+        //     /* settaint_(s2v(ra), gettopvstk(vstack));  // TODO: taintの上書きじゃなくてandをとる？ */
+        //     /* printf("  implicit emtropy propagation! new imp:%f\n", s2v(ra)->taint_.tval); */
+        //     printf("calculated taint val: %f\n", luaO_calctaint(s2v(ra)->taint_));
+        // }
         vmbreak;
       }
       vmcase(OP_ADDK) {
