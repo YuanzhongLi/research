@@ -194,7 +194,8 @@ void *luaM_saferealloc_ (lua_State *L, void *block, size_t osize,
 }
 
 
-void *luaM_malloc_ (lua_State *L, size_t size, int tag) {
+void *luaM_malloc_ (lua_State *L, size_t size, int tag, int indent) {
+  if (pindent(indent)) printf("call luaM_malloc_\n");
   if (size == 0)
     return NULL;  /* that's all */
   else {
@@ -205,6 +206,7 @@ void *luaM_malloc_ (lua_State *L, size_t size, int tag) {
       if (newblock == NULL)
         luaM_error(L);
     }
+    if (pindent(indent)) printf("malloc: %d Byte\n", size);
     g->GCdebt += size;
     return newblock;
   }
