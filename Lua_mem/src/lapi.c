@@ -745,7 +745,7 @@ LUA_API int lua_rawgetp (lua_State *L, int idx, const void *p) {
 LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {
   Table *t;
   lua_lock(L);
-  t = luaH_new(L);
+  t = luaH_new(L, -1000);
   sethvalue2s(L, L->top, t);
   api_incr_top(L);
   if (narray > 0 || nrec > 0)

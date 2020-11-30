@@ -581,7 +581,8 @@ static void rehash (lua_State *L, Table *t, const TValue *ek, int indent) {
 */
 
 
-Table *luaH_new (lua_State *L) {
+Table *luaH_new (lua_State *L, int indent) {
+  if (pindent(indent)) printf("call luaH_new\n");
   GCObject *o = luaC_newobj(L, LUA_VTABLE, sizeof(Table));
   Table *t = gco2t(o);
   t->metatable = NULL;
