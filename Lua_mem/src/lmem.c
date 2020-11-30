@@ -133,7 +133,7 @@ void luaM_free_ (lua_State *L, void *block, size_t osize, int indent) {
   if (pindent(indent)) printf("luaM_free_\n");
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
-  if (pindent(indent)) printf("*free   %d Byte\n", osize);
+  if (pindent(indent)) printf("free   %d Byte\n", osize);
   (*g->frealloc)(g->ud, block, osize, 0);
   g->GCdebt -= osize;
 }
@@ -163,7 +163,6 @@ static void *tryagain (lua_State *L, void *block,
 */
 void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int indent) {
   if (pindent(indent)) printf("luaM_realloc_\n");
-  else printf("call luaM_realloc_\n");
   void *newblock;
   global_State *g = G(L);
   lua_assert((osize == 0) == (block == NULL));
@@ -190,7 +189,6 @@ void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize, int 
 
 void *luaM_saferealloc_ (lua_State *L, void *block, size_t osize,
                                                     size_t nsize) {
-  printf("call luaM_saferealloc_\n");
   void *newblock = luaM_realloc_(L, block, osize, nsize, -1000);
   if (unlikely(newblock == NULL && nsize > 0))  /* allocation failed? */
     luaM_error(L);

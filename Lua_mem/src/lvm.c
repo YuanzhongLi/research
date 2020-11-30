@@ -566,115 +566,6 @@ int luaV_lessequal (lua_State *L, const TValue *l, const TValue *r) {
   else return lessequalothers(L, l, r);
 }
 
-/* check operation for implicit taint prop */
-Taint* luaV_checktrange (const TValue *t1, const TValue *t2, int cond, int comp) {
-  // cond 0: equal 1: not equal
-  // comp 0: ==, 1: <=, 2: <
-  Taint* taint;
-  switch (ttypetag(t1)) {
-  case LUA_VNIL: {
-      printf("  LUA_VNIL\n");
-      break;
-  }
-  case LUA_VFALSE: {
-      printf("  LUA_VFALSE\n");
-      break;
-  }
-  case LUA_VTRUE: {
-      printf("  LUA_VTRUE\n");
-      break;
-  }
-  case LUA_VNUMINT: {
-      /* integer */
-      printf("  LUA_VNUMINT, val:%d\n", (int)ivalue(t1));
-      break;
-  }
-  case LUA_VNUMFLT: {
-      /* float */
-      printf("  LUA_VNUMFLT, val:%f\n", (float)fltvalue(t1));
-      break;
-  }
-  case LUA_VLIGHTUSERDATA: {
-      /* proto (function)*/
-      printf("  LUA_VLIGHTUSERDATA\n");
-      break;
-  }
-  case LUA_VLCF: {
-      /* light C function */
-      printf("  LUA_VLCF\n");
-      break;
-  }
-  case LUA_VSHRSTR: {
-      /* TString */
-      printf("  LUA_VSHRSTR, left val:%s, taint:%f, right val:%s\n",
-             svalue(t1), t1->taint_.tval, svalue(t2));
-      int tsrc = (t1->taint_.tval > 0.0) ? 1 :
-          ((t2->taint_.tval > 0.0) ? 2 : 0);  // TODO: 両方taintのとき
-      if (tsrc == 0) return 0;
-      const TValue *taintv = (tsrc == 1) ? t1 : t2;
-      const TValue *tgtv = (tsrc == 1) ? t2 : t1;
-      char* t2str = svalue(tgtv);
-      int strlen = vslen(tgtv);
-      taint = (Taint*)malloc(sizeof(Taint));
-      taint->srcidx = taintv->taint_.srcidx;
-      taint->tval = strlen*8.0;  // char:8.0, 比較対象の文字数分だけ情報量を持つ
-      Trange* trange = (Trange *)malloc(strlen*sizeof(Trange));
-      for (int i=0; i < strlen; i++) {
-          if ((cond == 0 && comp == 0) ||
-              (comp == 1) || (comp == 2)) {  // range 1種類
-              trange[i].range = (Range *)malloc(sizeof(Range));
-              if (comp == 0) {
-                  trange[i].range[0].start = (int)t2str[i];
-                  trange[i].range[0].end = (int)t2str[i];
-              } else if (comp == 1 || comp == 2) {
-                  if (cond == 0) {
-                      trange[i].range[0].start = -128;
-                      if (comp == 1) trange[i].range[0].end = (int)t2str[i];
-                      else trange[i].range[0].end = (int)t2str[i] - 1;
-                  } else {
-                      if (comp == 1) trange[i].range[0].start = (int)t2str[i] + 1;
-                      else trange[i].range[0].start = (int)t2str[i];
-                      trange[i].range[0].end = 127;
-                  }
-              }
-              trange[i].rsize = 1;
-              printf("    trange[%d].range[0].start/end = %d/%d\n", i,
-                     trange[i].range[0].start, trange[i].range[0].end);
-          } else if (cond == 1 && comp == 0) {  // range 2種類
-              trange[i].range = (Range *)malloc(2*sizeof(Range));
-              trange[i].range[0].start = -128;
-              trange[i].range[0].end = (int)t2str[i] - 1;
-              trange[i].range[1].start = (int)t2str[i] + 1;
-              trange[i].range[1].end = 127;
-              trange[i].rsize = 2;
-              printf("    trange[%d].range[0].start/end = -128/%d\n",
-                     i, (int)t2str[i]-1);
-              printf("    trange[%d].range[1].start/end = %d/127\n",
-                     i, (int)t2str[i]+1);
-          }
-      }
-      taint->ranges = trange;
-      taint->rsize = strlen;
-      break;
-  }
-  case LUA_VLNGSTR: {
-      /* TString */
-      printf("  LUA_VLNGSTR, val:%s\n", getstr(tsvalue(t1)));
-      break;
-  }
-  case LUA_VUSERDATA: {
-      printf("  LUA_VUSERDATA\n");
-      break;
-  }
-  case LUA_VTABLE: {
-      printf("  LUA_VTABLE\n");
-      break;
-  }
-  default: printf("  GC value\n");
-  }
-  return taint;
-}
-
 /*
 ** Main operation for equality of Lua values; return 't1 == t2'.
 ** L == NULL means raw equality (no metamethods)
@@ -1099,7 +990,7 @@ void luaV_finishOp (lua_State *L) {
 ** for all numbers, but the fast track improves performance for
 ** integers.
 */
-#define op_order(L,opi,opn,other,comp) {  \
+#define op_order(L,opi,opn,other) {  \
         int cond;  \
         TValue *rb = vRB(i);  \
         if (ttisinteger(s2v(ra)) && ttisinteger(rb)) {  \
@@ -1110,14 +1001,7 @@ void luaV_finishOp (lua_State *L) {
         else if (ttisnumber(s2v(ra)) && ttisnumber(rb))  \
           cond = opn(s2v(ra), rb);  \
         else  \
-          Protect(cond = other(L, s2v(ra), rb)); \
-        Taint newtaint; \
-        if (cond == GETARG_k(i)) {  \
-            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, (1-GETARG_k(i)), comp));  \
-        } else {  \
-            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, GETARG_k(i), comp));  \
-        }  \
-        ctaint = &newtaint;  \
+          Protect(cond = other(L, s2v(ra), rb));  \
         docondjump(); }
 
 
@@ -1514,16 +1398,6 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         printf("ADDI\n");
         printf("  R[%d] := R[%d] + %d\n", GETARG_A(i), GETARG_B(i), GETARG_sC(i));
         op_arithI(L, l_addi, luai_numadd);
-        // if (!isvstkempty(vstack)) {
-        //     printf("ra taint:%f, ", s2v(ra)->taint_.tval);
-        //     printf("vstack top taint:%f\n", gettopvstk(vstack).tval);
-        //     settaint_(s2v(ra),
-        //               luaO_andrange(&(s2v(ra)->taint_), &gettopvstk(vstack)));
-        //     // print_taint(s2v(ra)->taint_);
-        //     /* settaint_(s2v(ra), gettopvstk(vstack));  // TODO: taintの上書きじゃなくてandをとる？ */
-        //     /* printf("  implicit emtropy propagation! new imp:%f\n", s2v(ra)->taint_.tval); */
-        //     printf("calculated taint val: %f\n", luaO_calctaint(s2v(ra)->taint_));
-        // }
         vmbreak;
       }
       vmcase(OP_ADDK) {
@@ -1762,14 +1636,14 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         printf("LT\n");
         printf("  if ((R[%d] < R[%d]) ~= %d) then pc++\n",
                GETARG_A(i), GETARG_B(i), GETARG_k(i));
-        op_order(L, l_lti, LTnum, lessthanothers, 2);  // it includes taint prop
+        op_order(L, l_lti, LTnum, lessthanothers);  // it includes taint prop
         vmbreak;
       }
       vmcase(OP_LE) {
         printf("LE\n");
         printf("  if ((R[%d] <= R[%d]) ~= %d) then pc++\n",
                GETARG_A(i), GETARG_B(i), GETARG_k(i));
-        op_order(L, l_lei, LEnum, lessequalothers, 1);  // it includes taint prop
+        op_order(L, l_lei, LEnum, lessequalothers);  // it includes taint prop
         vmbreak;
       }
       vmcase(OP_EQK) {
@@ -1779,16 +1653,6 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
                GETARG_A(i), GETARG_B(i), GETARG_k(i));
         /* basic types do not use '__eq'; we can use raw equality */
         int cond = luaV_rawequalobj(s2v(ra), rb);  // luaV_equalobj in lvm.c
-        Taint newtaint;
-        if (cond == GETARG_k(i)) {
-            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, (1-GETARG_k(i)), 0));
-            Instruction ni = *pc;  // EQKの次の命令は必ずJMP, elseの時に飛ぶ
-            printf("  else, do next jump to +(%d+1)\n", GETARG_sJ(ni));
-        } else {
-            newtaint = luaO_andrange(ctaint, luaV_checktrange(s2v(ra), rb, GETARG_k(i), 0));
-        }
-        ctaint = &newtaint;
-        // print_taint(*ctaint);
         docondjump();
         vmbreak;
       }

@@ -710,6 +710,7 @@ static void freeupval (lua_State *L, UpVal *uv) {
 
 
 static void freeobj (lua_State *L, GCObject *o) {
+  printf("call freeobj\n");
   switch (o->tt) {
     case LUA_VPROTO:
       luaF_freeproto(L, gco2p(o));
