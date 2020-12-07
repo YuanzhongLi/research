@@ -1,0 +1,270 @@
+VARARGPREP
+NEWTABLE
+  log2(hash size) + 1: 0, array size 0
+  luaH_new
+    luaC_newobj
+      luaM_malloc_
+      malloc: 88 Byte
+    setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+SETTABUP
+  value name: ary, rc: -96420352
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+LOADI
+  R[0] := 1
+  R[0]
+LOADI
+  R[1] := 10
+  R[1]
+LOADI
+  R[2] := 1
+  R[2]
+FORPREP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+            luaM_malloc_
+            malloc: 56 Byte
+          luaM_realloc_
+      luaH_set
+        luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+            luaM_malloc_
+            malloc: 112 Byte
+          luaM_realloc_
+      luaH_set
+        luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+            luaM_malloc_
+            malloc: 224 Byte
+          luaM_realloc_
+      luaH_set
+        luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+            luaM_malloc_
+            malloc: 448 Byte
+          luaM_realloc_
+      luaH_set
+        luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+            luaM_malloc_
+            malloc: 896 Byte
+          luaM_realloc_
+      luaH_set
+        luaH_newkey
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+GETTABUP
+  key name: string
+  R[5] := TAB[0][K[C]:string]
+GETFIELD
+LOADK
+  R[6] := K[3]
+  R[6]
+MOVE
+CALL
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+FORLOOP
+GETTABUP
+  key name: print
+  R[0] := TAB[0][K[C]:print]
+GETTABUP
+  key name: ary
+  R[1] := TAB[0][K[C]:ary]
+LEN
+CALL
+0
+RETURN

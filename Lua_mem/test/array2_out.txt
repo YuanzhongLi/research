@@ -1,0 +1,455 @@
+call freeobj
+call freeobj
+call freeobj
+VARARGPREP
+NEWTABLE
+  log2(hash size) + 1: 0, array size 0
+  luaH_new
+    luaC_newobj
+      luaM_malloc_
+      malloc 88 Byte
+    setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+SETTABUP
+  value name: ary, rc: -1371488832
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+LOADI
+  R[0] := 1
+  R[0]
+LOADI
+  R[1] := 10
+  R[1]
+LOADI
+  R[2] := 1
+  R[2]
+FORPREP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          malloc 40 Byte
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          malloc 40 Byte
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          malloc 80 Byte
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          malloc 160 Byte
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          malloc 320 Byte
+          freehash
+      luaH_set
+FORLOOP
+GETTABUP
+  key name: ary
+  R[4] := TAB[0][K[C]:ary]
+SETTABLE
+  luaV_finishset
+  loop 0
+  is table
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+          luaM_realloc_
+          freehash
+      luaH_set
+FORLOOP
+RETURN
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
