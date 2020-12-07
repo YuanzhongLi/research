@@ -1,0 +1,541 @@
+call freeobj
+call freeobj
+call freeobj
+VARARGPREP
+SETTABUP
+  value name: a, rc: 1
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: b, rc: 2
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: c, rc: 3
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: d, rc: 4
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: e, rc: 5
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: f, rc: 6
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: g, rc: 7
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: h, rc: 8
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: i, rc: 9
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: j, rc: 10
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: k, rc: 11
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: l, rc: 12
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: m, rc: 13
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: n, rc: 14
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: o, rc: 15
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: p, rc: 16
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: q, rc: 17
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: r, rc: 18
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: s, rc: 19
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: t, rc: 20
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: u, rc: 21
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: v, rc: 22
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: w, rc: 23
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: x, rc: 24
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: y, rc: 25
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: z, rc: 26
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: aa, rc: 27
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: ab, rc: 28
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: ac, rc: 29
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+    cannot find a free place
+      rehash
+        luaH_resize
+          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+            luaM_malloc_
+            malloc 7168 Byte
+          luaM_realloc_
+          freehash
+            luaM_free_
+            free   3584 Byte
+      luaH_set
+        luaH_newkey
+SETTABUP
+  value name: ad, rc: 30
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: ae, rc: 31
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: af, rc: 32
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: ag, rc: 33
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+SETTABUP
+  value name: ah, rc: 34
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+RETURN
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj

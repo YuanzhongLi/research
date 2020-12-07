@@ -1,0 +1,79 @@
+VARARGPREP
+CLOSURE
+  pushclosure
+    luaF_newLclosure
+      luaC_newobj
+        luaM_malloc_
+        malloc: 72 Byte
+SETTABUP
+  value name: void, rc: 1765846912
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+CLOSURE
+  pushclosure
+    luaF_newLclosure
+      luaC_newobj
+        luaM_malloc_
+        malloc: 64 Byte
+SETTABUP
+  value name: add, rc: 1765846992
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+CLOSURE
+  pushclosure
+    luaF_newLclosure
+      luaC_newobj
+        luaM_malloc_
+        malloc: 64 Byte
+SETTABUP
+  value name: sub, rc: 1765847056
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+CLOSURE
+  pushclosure
+    luaF_newLclosure
+      luaC_newobj
+        luaM_malloc_
+        malloc: 64 Byte
+SETTABUP
+  value name: max, rc: 1765847120
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+CLOSURE
+  pushclosure
+    luaF_newLclosure
+      luaC_newobj
+        luaM_malloc_
+        malloc: 64 Byte
+SETTABUP
+  value name: min, rc: 1765847184
+  luaV_finishset
+  loop 0
+  is table
+  no previous entry
+    luaH_newkey
+GETTABUP
+  key name: add
+  R[0] := TAB[0][K[C]:add]
+LOADI
+  R[1] := 10
+  R[1]
+LOADI
+  R[2] := 5
+  R[2]
+CALL
+ADD
+RETURN1
+RETURN
