@@ -335,7 +335,6 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
     if (pindent(indent)) printf("loop %d\n", loop);
     const TValue *tm;  /* '__newindex' metamethod */
     if (slot != NULL) {  /* is 't' a table? */
-      if (pindent(indent)) printf("is table\n");
       Table *h = hvalue(t);  /* save 't' table */
       lua_assert(isempty(slot));  /* slot must be empty */
       tm = fasttm(L, h->metatable, TM_NEWINDEX);  /* get metamethod */
@@ -350,16 +349,13 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
         return;
       }
       /* else will try the metamethod */
-    }
-    else {  /* not a table; check metamethod */
-      if (pindent(indent)) printf("not table\n");
+    } else {  /* not a table; check metamethod */
       tm = luaT_gettmbyobj(L, t, TM_NEWINDEX);
       if (unlikely(notm(tm)))
         luaG_typeerror(L, t, "index");
     }
     /* try the metamethod */
     if (ttisfunction(tm)) {
-      if (pindent(indent)) printf("is function\n");
       luaT_callTM(L, tm, t, key, val);
       return;
     }

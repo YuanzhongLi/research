@@ -1,16 +1,18 @@
+call freeobj
+call freeobj
+call freeobj
 VARARGPREP
 NEWTABLE
   log2(hash size) + 1: 0, array size 0
   luaH_new
     luaC_newobj
       luaM_malloc_
-      malloc: 88 Byte
-    setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      malloc 88 Byte
+    setnodevector
 SETTABUP
-  value name: ary, rc: -96420352
+  value name: ary, rc: -766491664
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 LOADI
@@ -38,16 +40,22 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      num_use_array: 0
+      total_use: 0
+      asize: 0
+        luaH_resize([newasize] 0, [nhsize] 1)
+          setnodevector
+            luaM_newvector
             luaM_malloc_
-            malloc: 56 Byte
-          luaM_realloc_
+            malloc 56 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
+          freehash
       luaH_set
         luaH_newkey
 FORLOOP
@@ -66,16 +74,24 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      num_use_array: 0
+      total_use: 1
+      asize: 0
+        luaH_resize([newasize] 0, [nhsize] 2)
+          setnodevector
+            luaM_newvector
             luaM_malloc_
-            malloc: 112 Byte
-          luaM_realloc_
+            malloc 112 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
+          freehash
+            luaM_free_
+            free   56 Byte
       luaH_set
         luaH_newkey
 FORLOOP
@@ -94,16 +110,24 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      num_use_array: 0
+      total_use: 2
+      asize: 0
+        luaH_resize([newasize] 0, [nhsize] 3)
+          setnodevector
+            luaM_newvector
             luaM_malloc_
-            malloc: 224 Byte
-          luaM_realloc_
+            malloc 224 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
+          freehash
+            luaM_free_
+            free   112 Byte
       luaH_set
         luaH_newkey
 FORLOOP
@@ -122,7 +146,6 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 FORLOOP
@@ -141,16 +164,24 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      num_use_array: 0
+      total_use: 4
+      asize: 0
+        luaH_resize([newasize] 0, [nhsize] 5)
+          setnodevector
+            luaM_newvector
             luaM_malloc_
-            malloc: 448 Byte
-          luaM_realloc_
+            malloc 448 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
+          freehash
+            luaM_free_
+            free   224 Byte
       luaH_set
         luaH_newkey
 FORLOOP
@@ -169,7 +200,6 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 FORLOOP
@@ -188,7 +218,6 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 FORLOOP
@@ -207,7 +236,6 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 FORLOOP
@@ -226,16 +254,24 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      num_use_array: 0
+      total_use: 8
+      asize: 0
+        luaH_resize([newasize] 0, [nhsize] 9)
+          setnodevector
+            luaM_newvector
             luaM_malloc_
-            malloc: 896 Byte
-          luaM_realloc_
+            malloc 896 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
+          freehash
+            luaM_free_
+            free   448 Byte
       luaH_set
         luaH_newkey
 FORLOOP
@@ -254,7 +290,6 @@ CALL
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 FORLOOP
@@ -268,3 +303,271 @@ LEN
 CALL
 0
 RETURN
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj

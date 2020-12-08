@@ -8,12 +8,11 @@ NEWTABLE
     luaC_newobj
       luaM_malloc_
       malloc 88 Byte
-    setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+    setnodevector
 SETTABUP
-  value name: ary, rc: -1371488832
+  value name: ary, rc: -960447040
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 LOADI
@@ -32,13 +31,15 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 0
+      totaluse: 0
+      na: 1
+        luaH_resize([newasize] 1, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           malloc 40 Byte
           freehash
@@ -50,13 +51,15 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 1
+      totaluse: 1
+      na: 2
+        luaH_resize([newasize] 2, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           malloc 40 Byte
           freehash
@@ -68,13 +71,15 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 2
+      totaluse: 2
+      na: 3
+        luaH_resize([newasize] 4, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           malloc 80 Byte
           freehash
@@ -86,12 +91,14 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 3
+      totaluse: 3
+      na: 4
+        luaH_resize([newasize] 4, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           freehash
       luaH_set
@@ -102,13 +109,15 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 4
+      totaluse: 4
+      na: 5
+        luaH_resize([newasize] 8, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           malloc 160 Byte
           freehash
@@ -120,12 +129,14 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 5
+      totaluse: 5
+      na: 6
+        luaH_resize([newasize] 8, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           freehash
       luaH_set
@@ -136,12 +147,14 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 6
+      totaluse: 6
+      na: 7
+        luaH_resize([newasize] 8, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           freehash
       luaH_set
@@ -152,12 +165,14 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 7
+      totaluse: 7
+      na: 8
+        luaH_resize([newasize] 8, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           freehash
       luaH_set
@@ -168,13 +183,15 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 8
+      totaluse: 8
+      na: 9
+        luaH_resize([newasize] 16, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           malloc 320 Byte
           freehash
@@ -186,12 +203,14 @@ GETTABUP
 SETTABLE
   luaV_finishset
   loop 0
-  is table
     luaH_newkey
     cannot find a free place
       rehash
-        luaH_resize
-          setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)
+      na: 9
+      totaluse: 9
+      na: 10
+        luaH_resize([newasize] 16, [nhsize] 0)
+          setnodevector
           luaM_realloc_
           freehash
       luaH_set

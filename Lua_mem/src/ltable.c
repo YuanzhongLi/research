@@ -435,7 +435,7 @@ static int numusehash (const Table *t, unsigned int *nums, unsigned int *pna) {
 ** overflow.
 */
 static void setnodevector (lua_State *L, Table *t, unsigned int size, int indent) {
-  if (pindent(indent)) printf("setnodevector (Creates an array for the hash part of a table with the given size, or reuses the dummy node if size is zero)\n");
+  if (pindent(indent)) printf("setnodevector\n");
   if (size == 0) {  /* no elements to hash part? */
     t->node = cast(Node *, dummynode);  /* use common 'dummynode' */
     t->lsizenode = 0;
@@ -447,6 +447,7 @@ static void setnodevector (lua_State *L, Table *t, unsigned int size, int indent
     if (lsize > MAXHBITS || (1u << lsize) > MAXHSIZE)
       luaG_runerror(L, "table overflow");
     size = twoto(lsize);
+    if (pindent(indent+2)) printf("luaM_newvector\n");
     t->node = luaM_newvector(L, size, Node, indent+2);
     for (i = 0; i < (int)size; i++) {
       Node *n = gnode(t, i);
@@ -510,7 +511,7 @@ static void exchangehashpart (Table *t1, Table *t2) {
 */
 void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
                                           unsigned int nhsize, int indent) {
-  if (pindent(indent)) printf("luaH_resize\n");
+  if (pindent(indent)) printf("luaH_resize([newasize] %d, [nhsize] %d)\n", newasize, nhsize);
   unsigned int i;
   Table newt;  /* to keep the new hash part */
   unsigned int oldasize = setlimittosize(t);
@@ -528,12 +529,16 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
     t->alimit = oldasize;  /* restore current size... */
     exchangehashpart(t, &newt);  /* and hash (in case of errors) */
   }
+
   /* allocate new array */
-  newarray = luaM_reallocvector(L, t->array, oldasize, newasize, TValue, indent+2);
+  if (pindent(indent+2)) printf("luaM_reallocvector (allocate new array)\n");
+  newarray = luaM_reallocvector(L, t->array, oldasize, newasize, TValue, indent+4);
   if (unlikely(newarray == NULL && newasize > 0)) {  /* allocation failed? */
+    if (pindent(indent+2)) printf("release new hash part\n");
     freehash(L, &newt, indent+2);  /* release new hash part */
     luaM_error(L);  /* raise error (with array unchanged) */
   }
+
   /* allocation ok; initialize new part of the array */
   exchangehashpart(t, &newt);  /* 't' has the new hash ('newt' has the old) */
   t->array = newarray;  /* set new array part */
@@ -542,6 +547,7 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
      setempty(&t->array[i]);
   /* re-insert elements from old hash part into new parts */
   reinsert(L, &newt, t);  /* 'newt' now has the old hash */
+  if (pindent(indent+2)) printf("free old hash part\n");
   freehash(L, &newt, indent+2);  /* free old hash part */
 }
 
@@ -564,14 +570,18 @@ static void rehash (lua_State *L, Table *t, const TValue *ek, int indent) {
   for (i = 0; i <= MAXABITS; i++) nums[i] = 0;  /* reset counts */
   setlimittosize(t);
   na = numusearray(t, nums);  /* count keys in array part */
+  if (pindent(indent)) printf("num_use_array: %d\n", na);
   totaluse = na;  /* all those keys are integer keys */
   totaluse += numusehash(t, nums, &na);  /* count keys in hash part */
+  if (pindent(indent)) printf("total_use: %d\n", totaluse);
   /* count extra key */
   if (ttisinteger(ek))
     na += countint(ivalue(ek), nums);
+
   totaluse++;
   /* compute new size for array part */
-  asize = computesizes(nums, &na);
+  asize = computesizes(nums, &na); // array size
+  if (pindent(indent)) printf("asize: %d\n", asize);
   /* resize the table to new computed sizes */
   luaH_resize(L, t, asize, totaluse - na, indent+2);
 }
