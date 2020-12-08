@@ -52,45 +52,13 @@ typedef union Value {
   lua_Number n;    /* float numbers */
 } Value;
 
-typedef struct Range {
-    // 変数の取りうる値の範囲を保存(taint値計算用)
-    int start;
-    int end;
-} Range;
-
-/* Struct of taint values */
-typedef struct Trange {
-    // 一文字，一つの型における複数範囲を保管
-    Range *range;
-    int rsize;
-} Trange;
-
-typedef struct Taint {
-    // arg tableがtaint sourceと仮定
-    int srcidx;  // index of arg table
-    float tval;  // taint value
-    Trange* ranges;  // 複数文字，配列など用に複数用意
-    int rsize;
-} Taint;
-
-// vstack: implicit flow のtaint伝搬用stack
-typedef struct vStkId {
-    Taint sval[16];  // stackの深さ16: 16重ループまで対応
-    int tail;
-} vStkId;
-
-#define initvstk(v)     (v->tail = -1)
-#define isvstkempty(v)  (v->tail == -1)
-#define popvstk(v)      { free(v->sval[v->tail].ranges); v->tail--; }
-#define pushvstk(v, t)  { v->tail++; v->sval[v->tail] = t; }
-#define gettopvstk(v)   (v->sval[v->tail])
 
 /*
 ** Tagged Values. This is the basic representation of values in Lua:
 ** an actual value plus a tag with its type.
 */
 
-#define TValuefields	Value value_; lu_byte tt_; Taint taint_
+#define TValuefields	Value value_; lu_byte tt_
 
 typedef struct TValue {
   TValuefields;
@@ -140,16 +108,11 @@ typedef struct TValue {
 /* set a value's tag */
 #define settt_(o,t)	((o)->tt_=(t))
 
-/* set a value's taint */
-#define settaint_(o,t)	 ((o)->taint_=(t))
-#define inittaint_(t)    { t.srcidx = 0; t.tval = 0; t.rsize = 0; }
-#define inittaintobj_(t)    { t->srcidx = 0; t->tval = 0; t->rsize = 0; }
 
 /* main macro to copy values (from 'obj1' to 'obj2') */
 #define setobj(L,obj1,obj2) \
 	{ TValue *io1=(obj1); const TValue *io2=(obj2); \
           io1->value_ = io2->value_; settt_(io1, io2->tt_); \
-          settaint_(io1, io2->taint_);                      \
 	  checkliveness(L,io1); lua_assert(!isnonstrictnil(io1)); }
 
 /*
@@ -297,7 +260,7 @@ typedef StackValue *StkId;
 ** Common Header for all collectable objects (in macro form, to be
 ** included in other objects)
 */
-#define CommonHeader	struct GCObject *next; lu_byte tt; lu_byte marked; Taint taint
+#define CommonHeader	struct GCObject *next; lu_byte tt; lu_byte marked
 
 
 /* Common type for all collectable objects */
@@ -354,8 +317,7 @@ typedef struct GCObject {
   { TValue *io=(obj); lua_assert(ttisfloat(io)); val_(io).n=(x); }
 
 #define setivalue(obj,x) \
-  { TValue *io=(obj); val_(io).i=(x); settt_(io, LUA_VNUMINT); \
-    Taint newt; inittaint_(newt); settaint_(io, newt); }
+  { TValue *io=(obj); val_(io).i=(x); settt_(io, LUA_VNUMINT); }
 
 #define chgivalue(obj,x) \
   { TValue *io=(obj); lua_assert(ttisinteger(io)); val_(io).i=(x); }
@@ -384,7 +346,6 @@ typedef struct GCObject {
 #define setsvalue(L,obj,x) \
   { TValue *io = (obj); TString *x_ = (x); \
       val_(io).gc = obj2gco(x_); settt_(io, ctb(x_->tt)); \
-      settaint_(io, x_->taint);                           \
       checkliveness(L,io); }
 
 /* set a string to the stack */
@@ -820,11 +781,6 @@ LUAI_FUNC const char *luaO_pushvfstring (lua_State *L, const char *fmt,
                                                        va_list argp);
 LUAI_FUNC const char *luaO_pushfstring (lua_State *L, const char *fmt, ...);
 LUAI_FUNC void luaO_chunkid (char *out, const char *source, size_t srclen);
-
-// support functions for Taint
-// LUAI_FUNC void print_taint(Taint t);
-LUAI_FUNC float luaO_calctaint(Taint t);
-LUAI_FUNC Taint luaO_andrange(Taint *t1, Taint *t2);
 
 
 #endif

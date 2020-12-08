@@ -522,30 +522,6 @@ LUA_API const char *lua_pushstring (lua_State *L, const char *s) {
   return s;
 }
 
-LUA_API const char *lua_pushTstring (lua_State *L, const char *s, int idx) {
-    // arg table専用，taintつき値を生成
-  lua_lock(L);
-  if (s == NULL)
-    setnilvalue(s2v(L->top));
-  else {
-    TString *ts;
-    ts = luaS_new(L, s);
-    // taint create
-    Taint ta;
-    ta.srcidx = idx;
-    ta.tval = (ts->shrlen) * 8.0;  // assume shortlen (char)
-    ts->taint = ta;  // set taint for TString
-    // taint create end
-    setsvalue2s(L, L->top, ts);
-    /* printf("L->top is tainted:%f\n", s2v(L->top)->taint_.tval); */
-    s = getstr(ts);  /* internal copy's address */
-  }
-  api_incr_top(L);
-  luaC_checkGC(L);
-  lua_unlock(L);
-  return s;
-}
-
 
 LUA_API const char *lua_pushvfstring (lua_State *L, const char *fmt,
                                       va_list argp) {

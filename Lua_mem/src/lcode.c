@@ -213,19 +213,6 @@ void luaK_ret (FuncState *fs, int first, int nret) {
   luaK_codeABC(fs, op, first, nret + 1, 0);
 }
 
-/*
-** Code a BPUSH/BPOP instruction for taint
-*/
-void luaK_bstack (FuncState *fs, int flag) {
-  OpCode op;
-  switch (flag) {
-    case 0: op = OP_BPUSH; break;
-    case 1: op = OP_BPOP; break;
-    default: op = OP_BPUSH; break;
-  }
-  return luaK_code(fs, CREATE_Ax(op, 0));
-}
-
 
 /*
 ** Code a "conditional jump", that is, a test or comparison opcode
@@ -1713,13 +1700,11 @@ void luaK_posfix (FuncState *fs, BinOpr opr,
     }
     case OPR_EQ: case OPR_NE: {
       codeeq(fs, opr, e1, e2);
-      luaK_bstack(fs, 0);
       break;
     }
     case OPR_LT: case OPR_LE: {
       OpCode op = cast(OpCode, (opr - OPR_EQ) + OP_EQ);
       codeorder(fs, op, e1, e2);
-      luaK_bstack(fs, 0);
       break;
     }
     case OPR_GT: case OPR_GE: {

@@ -1301,20 +1301,6 @@ static void block (LexState *ls) {
   leaveblock(fs);
 }
 
-/* BPUSH
-   block
-   BPOP */
-static void block_with_bstack (LexState *ls) {
-  /* block -> statlist */
-  FuncState *fs = ls->fs;
-  BlockCnt bl;
-  luaK_bstack(fs, 0); // 先頭にbpushを追加, pc++
-  enterblock(fs, &bl, 0);
-  statlist(ls);
-  leaveblock(fs);
-  luaK_bstack(fs, 1); // 末尾にbpopを追加, pc++
-}
-
 
 /*
 ** structure to chain all variables in the left-hand side of an
@@ -1682,7 +1668,7 @@ static void test_then_block (LexState *ls, int *escapelist) {
   expdesc v;
   int jf;  /* instruction to skip 'then' code (if condition is false) */
   luaX_next(ls);  /* skip IF or ELSEIF */
-  expr(ls, &v);  /* read condition */  // add EQK + JMP for top of if/elseif
+  expr(ls, &v);  /* read condition */
   checknext(ls, TK_THEN);
   line = ls->linenumber;
   if (issinglejump(ls, &jlb, &target)) {  /* 'if x then goto' ? */
@@ -1705,14 +1691,11 @@ static void test_then_block (LexState *ls, int *escapelist) {
     enterblock(fs, &bl, 0);
     jf = v.f;
   }
-  statlist(ls);  /* 'then' part */  // add then part code (if文の中身コード挿入)
+  statlist(ls);  /* 'then' part */
   leaveblock(fs);
-
   if (ls->t.token == TK_ELSE ||
-      ls->t.token == TK_ELSEIF) {  /* followed by 'else'/'elseif'? */
-      luaK_bstack(fs, 1); // 末尾にbpopを追加, pc++
-      luaK_concat(fs, escapelist, luaK_jump(fs));  /* must jump over it */  // 末尾にjumpを追加, pc++, else文のブロック追加
-  }
+      ls->t.token == TK_ELSEIF)  /* followed by 'else'/'elseif'? */
+      luaK_concat(fs, escapelist, luaK_jump(fs));  /* must jump over it */
   luaK_patchtohere(fs, jf);
 }
 
@@ -1724,10 +1707,8 @@ static void ifstat (LexState *ls, int line) {
   test_then_block(ls, &escapelist);  /* IF cond THEN block */
   while (ls->t.token == TK_ELSEIF)
     test_then_block(ls, &escapelist);  /* ELSEIF cond THEN block */
-  if (testnext(ls, TK_ELSE)) {
-    block_with_bstack(ls);  /* 'else' part */
-    /* block(ls);  /\* 'else' part *\/ */
-  }
+  if (testnext(ls, TK_ELSE))
+    block(ls);  /* 'else' part */
   check_match(ls, TK_END, TK_IF, line);
   luaK_patchtohere(fs, escapelist);  /* patch escape list to 'if' end */
 }

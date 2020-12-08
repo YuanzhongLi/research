@@ -2,31 +2,35 @@ call freeobj
 call freeobj
 call freeobj
 VARARGPREP
-NEWTABLE
-  log2(hash size) + 1: 0, array size 1
-  luaH_new
-    luaC_newobj
-      luaM_malloc_
-      malloc 56 Byte
-    setnodevector
-  luaH_resize([newasize] 1, [nhsize] 0)
-    setnodevector
-    luaM_reallocvector (allocate new array)
-      luaM_realloc_
-      malloc 16 Byte
-    free old hash part
-    freehash
+GETTABUP
+  key name: arg
+  R[0] := TAB[0][K[C]:arg]
+GETI
+  R[0] := TAB[0][1]
+  R[0]
 LOADI
-  R[1] := 1
+  R[1] := 0
   R[1]
-SETLIST
-SETTABUP
-  value name: a, rc: 2025886976
-  luaV_finishset
-  loop 0
-  no previous entry
-    luaH_newkey
+EQK
+  if ((R[0] == R[1]) != 0) then pc++
+LOADK
+  R[2] := K[2]
+  R[2]
+LE
+  if ((R[0] <= R[2]) ~= 0) then pc++
+ADDI
+  R[1] := R[1] + 2
+JMP
+GETTABUP
+  key name: print
+  R[2] := TAB[0][K[C]:print]
+MOVE
+CALL
+2
 RETURN
+call freeobj
+call freeobj
+call freeobj
 call freeobj
 call freeobj
 call freeobj

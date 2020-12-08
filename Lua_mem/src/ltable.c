@@ -581,7 +581,6 @@ static void rehash (lua_State *L, Table *t, const TValue *ek, int indent) {
   totaluse++;
   /* compute new size for array part */
   asize = computesizes(nums, &na); // array size
-  if (pindent(indent)) printf("asize: %d\n", asize);
   /* resize the table to new computed sizes */
   luaH_resize(L, t, asize, totaluse - na, indent+2);
 }

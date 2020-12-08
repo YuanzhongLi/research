@@ -7,10 +7,10 @@ NEWTABLE
   luaH_new
     luaC_newobj
       luaM_malloc_
-      malloc 88 Byte
+      malloc 56 Byte
     setnodevector
 SETTABUP
-  value name: ary, rc: -960447040
+  value name: ary, rc: 213947760
   luaV_finishset
   loop 0
   no previous entry
@@ -35,13 +35,14 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 0
-      totaluse: 0
-      na: 1
+      num_use_array: 0
+      total_use: 0
         luaH_resize([newasize] 1, [nhsize] 0)
           setnodevector
-          luaM_realloc_
-          malloc 40 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+            malloc 16 Byte
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -55,13 +56,14 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 1
-      totaluse: 1
-      na: 2
+      num_use_array: 1
+      total_use: 1
         luaH_resize([newasize] 2, [nhsize] 0)
           setnodevector
-          luaM_realloc_
-          malloc 40 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+            malloc 16 Byte
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -75,13 +77,14 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 2
-      totaluse: 2
-      na: 3
+      num_use_array: 2
+      total_use: 2
         luaH_resize([newasize] 4, [nhsize] 0)
           setnodevector
-          luaM_realloc_
-          malloc 80 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+            malloc 32 Byte
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -94,12 +97,13 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 3
-      totaluse: 3
-      na: 4
+      num_use_array: 3
+      total_use: 3
         luaH_resize([newasize] 4, [nhsize] 0)
           setnodevector
-          luaM_realloc_
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -113,13 +117,14 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 4
-      totaluse: 4
-      na: 5
+      num_use_array: 4
+      total_use: 4
         luaH_resize([newasize] 8, [nhsize] 0)
           setnodevector
-          luaM_realloc_
-          malloc 160 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+            malloc 64 Byte
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -132,12 +137,13 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 5
-      totaluse: 5
-      na: 6
+      num_use_array: 5
+      total_use: 5
         luaH_resize([newasize] 8, [nhsize] 0)
           setnodevector
-          luaM_realloc_
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -150,12 +156,13 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 6
-      totaluse: 6
-      na: 7
+      num_use_array: 6
+      total_use: 6
         luaH_resize([newasize] 8, [nhsize] 0)
           setnodevector
-          luaM_realloc_
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -168,12 +175,13 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 7
-      totaluse: 7
-      na: 8
+      num_use_array: 7
+      total_use: 7
         luaH_resize([newasize] 8, [nhsize] 0)
           setnodevector
-          luaM_realloc_
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -187,13 +195,14 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 8
-      totaluse: 8
-      na: 9
+      num_use_array: 8
+      total_use: 8
         luaH_resize([newasize] 16, [nhsize] 0)
           setnodevector
-          luaM_realloc_
-          malloc 320 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+            malloc 128 Byte
+          free old hash part
           freehash
       luaH_set
 FORLOOP
@@ -206,12 +215,13 @@ SETTABLE
     luaH_newkey
     cannot find a free place
       rehash
-      na: 9
-      totaluse: 9
-      na: 10
+      num_use_array: 9
+      total_use: 9
         luaH_resize([newasize] 16, [nhsize] 0)
           setnodevector
-          luaM_realloc_
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
           freehash
       luaH_set
 FORLOOP

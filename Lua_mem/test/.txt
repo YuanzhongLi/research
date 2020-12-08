@@ -1,0 +1,4 @@
+call freeobj
+call freeobj
+call freeobj
+Lua 5.4.0  Copyright (C) 1994-2020 Lua.org, PUC-Rio

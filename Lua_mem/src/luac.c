@@ -648,12 +648,6 @@ static void PrintCode(const Proto* f)
    case OP_VARARGPREP:
 	printf("%d",a);
 	break;
-   case OP_BPUSH:
-	printf("%d",ax);
-	break;
-   case OP_BPOP:
-	printf("%d",ax);
-	break;
    case OP_EXTRAARG:
 	printf("%d",ax);
 	break;

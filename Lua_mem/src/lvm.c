@@ -1133,9 +1133,6 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
   StkId base;
   const Instruction *pc;
   int trap;
-  vStkId *vstack = (vStkId *)malloc(sizeof(vStkId));
-  Taint *ctaint = (Taint *)malloc(sizeof(Taint));
-  inittaintobj_(ctaint);
 #if LUA_USE_JUMPTABLE
 #include "ljumptab.h"
 #endif
@@ -1144,7 +1141,6 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
   cl = clLvalue(s2v(ci->func));
   k = cl->p->k;
   pc = ci->u.l.savedpc;
-  initvstk(vstack);
   if (trap) {
     if (cl->p->is_vararg)
       trap = 0;  /* hooks will start after VARARGPREP instruction */
@@ -1171,7 +1167,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
       vmcase(OP_LOADI) {
         printf("LOADI\n");
         lua_Integer b = GETARG_sBx(i);
-        setivalue(s2v(ra), b);  // clear taint
+        setivalue(s2v(ra), b);
         printf("  R[%d] := %d\n", GETARG_A(i), (int)b);
         printf("  R[%d]\n", GETARG_A(i));
         vmbreak;
@@ -1185,7 +1181,7 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
       vmcase(OP_LOADK) {
         printf("LOADK\n");
         TValue *rb = k + GETARG_Bx(i);
-        setobj2s(L, ra, rb);  // copy taint
+        setobj2s(L, ra, rb);
         printf("  R[%d] := K[%d]\n", GETARG_A(i), GETARG_Bx(i));
         printf("  R[%d]\n", GETARG_A(i));
         vmbreak;
@@ -1632,14 +1628,14 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
         printf("LT\n");
         printf("  if ((R[%d] < R[%d]) ~= %d) then pc++\n",
                GETARG_A(i), GETARG_B(i), GETARG_k(i));
-        op_order(L, l_lti, LTnum, lessthanothers);  // it includes taint prop
+        op_order(L, l_lti, LTnum, lessthanothers);
         vmbreak;
       }
       vmcase(OP_LE) {
         printf("LE\n");
         printf("  if ((R[%d] <= R[%d]) ~= %d) then pc++\n",
                GETARG_A(i), GETARG_B(i), GETARG_k(i));
-        op_order(L, l_lei, LEnum, lessequalothers);  // it includes taint prop
+        op_order(L, l_lei, LEnum, lessequalothers);
         vmbreak;
       }
       vmcase(OP_EQK) {
@@ -1910,18 +1906,6 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
           L->oldpc = pc + 1;  /* next opcode will be seen as a "new" line */
         }
         updatebase(ci);  /* function has new base after adjustment */
-        vmbreak;
-      }
-      vmcase(OP_BPUSH) {
-        printf("BPUSH\n");  // TODO: BPUSHでctaintをクリア
-        pushvstk(vstack, *ctaint);
-        printf("  push imp taint to vstack, tail:%d\n", vstack->tail);
-        vmbreak;
-      }
-      vmcase(OP_BPOP) {
-        printf("BPOP\n");
-        popvstk(vstack);
-        printf("  pop imp taint from vstack, tail:%d\n", vstack->tail);
         vmbreak;
       }
       vmcase(OP_EXTRAARG) {

@@ -163,7 +163,7 @@ static void createargtable (lua_State *L, char **argv, int argc, int script) {
   narg = argc - (script + 1);  /* number of positive indices */
   lua_createtable(L, narg, script + 1);
   for (i = 0; i < argc; i++) {
-    lua_pushTstring(L, argv[i], i);
+    lua_pushstring(L, argv[i]);
     lua_rawseti(L, -2, i - script);
   }
   lua_setglobal(L, "arg");
@@ -632,4 +632,3 @@ int main (int argc, char **argv) {
   lua_close(L);
   return (result && status == LUA_OK) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
-
