@@ -1,4 +1,4 @@
-### size
+## 1. 構造体のsize
 - Value: 8 byte
 - TValue: 16 byte
 - GCObject: 16 byte
@@ -9,8 +9,8 @@
 - Proto (Function Prototypes): 128 byte
 - lua_State: 200 byte
 
-### 構造
-#### Value
+## 2.構造体の中身
+#### 2-1.Value
 ```
 typedef union Value {
   struct GCObject *gc;    /* collectable objects */
@@ -28,7 +28,7 @@ lu_byte(おそらく型情報)がGCObjectの方でも持っている
 
 TValue,その中身のGCObjectの関係をしっかり図示するといい
 
-#### TValue
+#### 2-2.TValue
 ```
 #define TValuefields	Value value_; lu_byte tt_
 
@@ -37,10 +37,10 @@ typedef struct TValue {
 } TValue;
 ```
 
-#### GCObject
+#### 2-3.GCObject
 
 
-### basic type
+## 3.basic type
 ```
 #define LUA_TNONE		(-1)
 
