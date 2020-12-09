@@ -1,79 +1,564 @@
+call freeobj
+call freeobj
+call freeobj
 VARARGPREP
 CLOSURE
   pushclosure
-    luaF_newLclosure
+    luaF_newLclosure [nupvals]1
       luaC_newobj
-        luaM_malloc_
-        malloc: 72 Byte
+        luaM_malloc_ [tag]6
+        malloc 40 Byte
 SETTABUP
-  value name: void, rc: 1765846912
+  value name: void, rc: 30425216
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 CLOSURE
   pushclosure
-    luaF_newLclosure
+    luaF_newLclosure [nupvals]0
       luaC_newobj
-        luaM_malloc_
-        malloc: 64 Byte
+        luaM_malloc_ [tag]6
+        malloc 32 Byte
 SETTABUP
-  value name: add, rc: 1765846992
+  value name: add, rc: 30425264
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 CLOSURE
   pushclosure
-    luaF_newLclosure
+    luaF_newLclosure [nupvals]0
       luaC_newobj
-        luaM_malloc_
-        malloc: 64 Byte
+        luaM_malloc_ [tag]6
+        malloc 32 Byte
 SETTABUP
-  value name: sub, rc: 1765847056
+  value name: sub, rc: 30425296
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 CLOSURE
   pushclosure
-    luaF_newLclosure
+    luaF_newLclosure [nupvals]0
       luaC_newobj
-        luaM_malloc_
-        malloc: 64 Byte
+        luaM_malloc_ [tag]6
+        malloc 32 Byte
 SETTABUP
-  value name: max, rc: 1765847120
+  value name: max, rc: 30425328
   luaV_finishset
   loop 0
-  is table
   no previous entry
     luaH_newkey
 CLOSURE
   pushclosure
-    luaF_newLclosure
+    luaF_newLclosure [nupvals]0
       luaC_newobj
-        luaM_malloc_
-        malloc: 64 Byte
+        luaM_malloc_ [tag]6
+        malloc 32 Byte
 SETTABUP
-  value name: min, rc: 1765847184
+  value name: min, rc: 30425360
   luaV_finishset
   loop 0
-  is table
+  no previous entry
+    luaH_newkey
+CLOSURE
+  pushclosure
+    luaF_newLclosure [nupvals]1
+      luaC_newobj
+        luaM_malloc_ [tag]6
+        malloc 40 Byte
+SETTABUP
+  value name: get_array_max, rc: 30425392
+  luaV_finishset
+  loop 0
   no previous entry
     luaH_newkey
 GETTABUP
+  key name: print
+  R[0] := TAB[0][K[C]:print]
+GETTABUP
   key name: add
-  R[0] := TAB[0][K[C]:add]
+  R[1] := TAB[0][K[C]:add]
 LOADI
-  R[1] := 10
-  R[1]
-LOADI
-  R[2] := 5
+  R[2] := 10
   R[2]
+LOADI
+  R[3] := 5
+  R[3]
 CALL
 ADD
 RETURN1
+CALL
+15
+GETTABUP
+  key name: print
+  R[0] := TAB[0][K[C]:print]
+GETTABUP
+  key name: get_array_max
+  R[1] := TAB[0][K[C]:get_array_max]
+NEWTABLE
+  log2(hash size) + 1: 0, array size 8
+  luaH_new
+    luaC_newobj
+      luaM_malloc_ [tag]5
+      malloc 56 Byte
+    setnodevector
+  luaH_resize([newasize] 8, [nhsize] 0)
+    setnodevector
+    luaM_reallocvector (allocate new array)
+      luaM_realloc_
+      malloc 128 Byte
+    free old hash part
+    freehash
+LOADI
+  R[3] := 3
+  R[3]
+LOADI
+  R[4] := 4
+  R[4]
+LOADI
+  R[5] := 19
+  R[5]
+LOADI
+  R[6] := 91
+  R[6]
+LOADI
+  R[7] := -1
+  R[7]
+LOADI
+  R[8] := 3
+  R[8]
+LOADI
+  R[9] := 101
+  R[9]
+LOADI
+  R[10] := 6
+  R[10]
+SETLIST
+CALL
+SETTABUP
+  value name: INF, rc: 58720256
+  luaV_finishset
+  loop 0
+  no previous entry
+    luaH_newkey
+GETTABUP
+  key name: INF
+  R[1] := TAB[0][K[C]:INF]
+UNM
+SETTABUP
+  value name: ret, rc: 58720256
+  luaV_finishset
+  loop 0
+  no previous entry
+    luaH_newkey
+LOADI
+  R[1] := 1
+  R[1]
+LEN
+LOADI
+  R[3] := 1
+  R[3]
+FORPREP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 3
+  fastset: key ret, rc 3
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 4
+  fastset: key ret, rc 4
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 19
+  fastset: key ret, rc 19
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 91
+  fastset: key ret, rc 91
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 91
+  fastset: key ret, rc 91
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 91
+  fastset: key ret, rc 91
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 101
+  fastset: key ret, rc 101
+FORLOOP
+GETTABUP
+  key name: max
+  R[5] := TAB[0][K[C]:max]
+GETTABUP
+  key name: ret
+  R[6] := TAB[0][K[C]:ret]
+GETTABLE
+CALL
+LT
+  if ((R[1] < R[0]) ~= 0) then pc++
+RETURN1
+SETTABUP
+  value name: ret, rc: 101
+  fastset: key ret, rc 101
+FORLOOP
+RETURN0
+CALL
+
 RETURN
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj
+call freeobj

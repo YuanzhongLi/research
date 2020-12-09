@@ -178,18 +178,19 @@ SETTABUP
     luaH_newkey
     cannot find a free place
       rehash
-      na: 0
-      totaluse: 64
-      na: 0
+      num_use_array: 0
+      total_use: 64
         luaH_resize([newasize] 0, [nhsize] 65)
           setnodevector
-          luaM_newvector
-            luaM_malloc_
-            malloc 7168 Byte
-          luaM_realloc_
+            luaM_newvector
+            luaM_malloc_ [tag]0
+            malloc 3072 Byte
+          luaM_reallocvector (allocate new array)
+            luaM_realloc_
+          free old hash part
           freehash
             luaM_free_
-            free   3584 Byte
+            free   1536 Byte
       luaH_set
         luaH_newkey
 SETTABUP

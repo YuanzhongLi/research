@@ -784,7 +784,7 @@ lua_Integer luaV_shiftl (lua_Integer x, lua_Integer y) {
 */
 static void pushclosure (lua_State *L, Proto *p, UpVal **encup, StkId base,
                          StkId ra, int indent) {
-  if (pindent(indent)) printf("pushclosure\n");
+  if (pindent(indent)) printf("pushclosure (create a new Lua closure, push it in the stack, and initialize its upvalues)\n");
   int nup = p->sizeupvalues;
   Upvaldesc *uv = p->upvalues;
   int i;
