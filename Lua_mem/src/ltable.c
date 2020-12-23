@@ -533,6 +533,14 @@ void luaH_resize (lua_State *L, Table *t, unsigned int newasize,
   /* allocate new array */
   if (pindent(indent+2)) printf("luaM_reallocvector (allocate new array)\n");
   newarray = luaM_reallocvector(L, t->array, oldasize, newasize, TValue, indent+4);
+
+  for (int i = 0; i < newasize; i++) {
+    if (pindent(indent+2)) {
+      printf("newarray[%d] ", i);
+      pv(newarray[i].value_);
+    }
+  }
+
   if (unlikely(newarray == NULL && newasize > 0)) {  /* allocation failed? */
     if (pindent(indent+2)) printf("release new hash part\n");
     freehash(L, &newt, indent+2);  /* release new hash part */
