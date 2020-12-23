@@ -1,4 +1,4 @@
 ary = {}
 for i = 1, 10 do
-  ary[i] = i*i
+  ary[i] = math.sqrt(i)
 end

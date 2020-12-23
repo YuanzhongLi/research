@@ -10,7 +10,7 @@ NEWTABLE
       malloc 56 Byte
     setnodevector
 SETTABUP
-  value name: ary, rc: -815763616
+  value name: ary, rc: 255890800
   luaV_finishset
   loop 0
   no previous entry
@@ -28,7 +28,12 @@ FORPREP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -43,7 +48,7 @@ SETTABLE
           luaM_reallocvector (allocate new array)
             luaM_realloc_
             malloc 16 Byte
-          newarray[0] lua_Integer 2305843009213693952, lua_Number 0.000000
+          newarray[0] lua_Integer 6917529027641081856, lua_Number 26815615859885194199148049996411692254958731641184786755447122887443528060147093953603748596333806855380063716372972101707507765623893139892867298012168192.000000
           free old hash part
           freehash
       luaH_set
@@ -51,7 +56,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -66,8 +76,8 @@ SETTABLE
           luaM_reallocvector (allocate new array)
             luaM_realloc_
             malloc 16 Byte
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer -9222104843261313022, lua_Number -0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 2, lua_Number 0.000000
           free old hash part
           freehash
       luaH_set
@@ -75,7 +85,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -90,8 +105,8 @@ SETTABLE
           luaM_reallocvector (allocate new array)
             luaM_realloc_
             malloc 32 Byte
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
           newarray[2] lua_Integer 0, lua_Number 0.000000
           newarray[3] lua_Integer 0, lua_Number 0.000000
           free old hash part
@@ -101,7 +116,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -114,9 +134,9 @@ SETTABLE
           setnodevector
           luaM_reallocvector (allocate new array)
             luaM_realloc_
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
           newarray[3] lua_Integer 0, lua_Number 0.000000
           free old hash part
           freehash
@@ -125,7 +145,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -140,10 +165,10 @@ SETTABLE
           luaM_reallocvector (allocate new array)
             luaM_realloc_
             malloc 64 Byte
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
-          newarray[3] lua_Integer 16, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
+          newarray[3] lua_Integer 4611686018427387904, lua_Number 2.000000
           newarray[4] lua_Integer 0, lua_Number 0.000000
           newarray[5] lua_Integer 0, lua_Number 0.000000
           newarray[6] lua_Integer 0, lua_Number 0.000000
@@ -155,7 +180,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -168,11 +198,11 @@ SETTABLE
           setnodevector
           luaM_reallocvector (allocate new array)
             luaM_realloc_
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
-          newarray[3] lua_Integer 16, lua_Number 0.000000
-          newarray[4] lua_Integer 25, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
+          newarray[3] lua_Integer 4611686018427387904, lua_Number 2.000000
+          newarray[4] lua_Integer 4612217596255138984, lua_Number 2.236068
           newarray[5] lua_Integer 0, lua_Number 0.000000
           newarray[6] lua_Integer 0, lua_Number 0.000000
           newarray[7] lua_Integer 0, lua_Number 0.000000
@@ -183,7 +213,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -196,12 +231,12 @@ SETTABLE
           setnodevector
           luaM_reallocvector (allocate new array)
             luaM_realloc_
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
-          newarray[3] lua_Integer 16, lua_Number 0.000000
-          newarray[4] lua_Integer 25, lua_Number 0.000000
-          newarray[5] lua_Integer 36, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
+          newarray[3] lua_Integer 4611686018427387904, lua_Number 2.000000
+          newarray[4] lua_Integer 4612217596255138984, lua_Number 2.236068
+          newarray[5] lua_Integer 4612698179346440494, lua_Number 2.449490
           newarray[6] lua_Integer 0, lua_Number 0.000000
           newarray[7] lua_Integer 0, lua_Number 0.000000
           free old hash part
@@ -211,7 +246,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -224,13 +264,13 @@ SETTABLE
           setnodevector
           luaM_reallocvector (allocate new array)
             luaM_realloc_
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
-          newarray[3] lua_Integer 16, lua_Number 0.000000
-          newarray[4] lua_Integer 25, lua_Number 0.000000
-          newarray[5] lua_Integer 36, lua_Number 0.000000
-          newarray[6] lua_Integer 49, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
+          newarray[3] lua_Integer 4611686018427387904, lua_Number 2.000000
+          newarray[4] lua_Integer 4612217596255138984, lua_Number 2.236068
+          newarray[5] lua_Integer 4612698179346440494, lua_Number 2.449490
+          newarray[6] lua_Integer 4613140121109330154, lua_Number 2.645751
           newarray[7] lua_Integer 0, lua_Number 0.000000
           free old hash part
           freehash
@@ -239,7 +279,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -254,14 +299,14 @@ SETTABLE
           luaM_reallocvector (allocate new array)
             luaM_realloc_
             malloc 128 Byte
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
-          newarray[3] lua_Integer 16, lua_Number 0.000000
-          newarray[4] lua_Integer 25, lua_Number 0.000000
-          newarray[5] lua_Integer 36, lua_Number 0.000000
-          newarray[6] lua_Integer 49, lua_Number 0.000000
-          newarray[7] lua_Integer 64, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
+          newarray[3] lua_Integer 4611686018427387904, lua_Number 2.000000
+          newarray[4] lua_Integer 4612217596255138984, lua_Number 2.236068
+          newarray[5] lua_Integer 4612698179346440494, lua_Number 2.449490
+          newarray[6] lua_Integer 4613140121109330154, lua_Number 2.645751
+          newarray[7] lua_Integer 4613551470472543181, lua_Number 2.828427
           newarray[8] lua_Integer 0, lua_Number 0.000000
           newarray[9] lua_Integer 0, lua_Number 0.000000
           newarray[10] lua_Integer 0, lua_Number 0.000000
@@ -277,7 +322,12 @@ FORLOOP
 GETTABUP
   key name: ary
   R[4] := TAB[0][K[C]:ary]
-MUL
+GETTABUP
+  key name: math
+  R[5] := TAB[0][K[C]:math]
+GETFIELD
+MOVE
+CALL
 SETTABLE
   luaV_finishset
   loop 0
@@ -290,15 +340,15 @@ SETTABLE
           setnodevector
           luaM_reallocvector (allocate new array)
             luaM_realloc_
-          newarray[0] lua_Integer 1, lua_Number 0.000000
-          newarray[1] lua_Integer 4, lua_Number 0.000000
-          newarray[2] lua_Integer 9, lua_Number 0.000000
-          newarray[3] lua_Integer 16, lua_Number 0.000000
-          newarray[4] lua_Integer 25, lua_Number 0.000000
-          newarray[5] lua_Integer 36, lua_Number 0.000000
-          newarray[6] lua_Integer 49, lua_Number 0.000000
-          newarray[7] lua_Integer 64, lua_Number 0.000000
-          newarray[8] lua_Integer 81, lua_Number 0.000000
+          newarray[0] lua_Integer 4607182418800017408, lua_Number 1.000000
+          newarray[1] lua_Integer 4609047870845172685, lua_Number 1.414214
+          newarray[2] lua_Integer 4610479282544200874, lua_Number 1.732051
+          newarray[3] lua_Integer 4611686018427387904, lua_Number 2.000000
+          newarray[4] lua_Integer 4612217596255138984, lua_Number 2.236068
+          newarray[5] lua_Integer 4612698179346440494, lua_Number 2.449490
+          newarray[6] lua_Integer 4613140121109330154, lua_Number 2.645751
+          newarray[7] lua_Integer 4613551470472543181, lua_Number 2.828427
+          newarray[8] lua_Integer 4613937818241073152, lua_Number 3.000000
           newarray[9] lua_Integer 0, lua_Number 0.000000
           newarray[10] lua_Integer 0, lua_Number 0.000000
           newarray[11] lua_Integer 0, lua_Number 0.000000
