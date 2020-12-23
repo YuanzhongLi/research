@@ -536,6 +536,11 @@ const char *luaO_pushfstring (lua_State *L, const char *fmt, ...) {
   return msg;
 }
 
+// 自作
+const void pv(Value v) {
+  printf("lua_Integer %ld, lua_Number %lf\n", v.i, v.n);
+}
+
 /* }================================================================== */
 
 
